@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor Dinamis LaTeX & SageMath (Mode Terang Default)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+
+    <script>
+    // Make the div with id 'Intent' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#Intent',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'Evaluasi'});
+    </script>
+
+
+    <script defer src="https://unpkg.com/mathlive"></script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            transition: background 0.4s, color 0.4s;
+            background-color: #ffffff; /* Default light mode background */
+            color: #333333; /* Default light mode text color */
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .preview, .dark-mode .text-block {
+            background-color: #1e1e1e;
+            border-color: #555;
+        }
+
+        .dark-mode textarea {
+            background-color: #222;
+            color: #eee;
+            border-color: #444;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            background-color: #ffffff; /* Light mode textarea background */
+            color: #333333; /* Light mode textarea text color */
+        }
+
+        .preview {
+            padding: 10px 20px;
+            background: #f9f9f9;
+            border: 1px dashed #999;
+            margin-bottom: 10px;
+            min-height: 50px;
+        }
+
+        .compute, #mycell {
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            margin: 10px 10px 20px 0;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-small {
+            font-size: 12px;
+            padding: 6px 10px;
+            margin-right: 5px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            margin-top: 40px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .text-block {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #fefefe; /* Light mode text block background */
+        }
+
+        .dark-mode .text-block {
+            background-color: #1e1e1e;
+            border-color: #555;
+        }
+
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            border-bottom: 2px solid #444;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+            font-size: 30px;
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+            font-weight: bold;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        #toggleMode {
+            float: right;
+            margin-top: -60px;
+        }
+
+        #floatingMenu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+        }
+
+        #floatingMenu .btn {
+            display: block;
+            margin-bottom: 8px;
+            background-color: #444;
+            font-size: 13px;
+            padding: 6px 10px;
+        }
+
+        math-field {
+            width: 100%;
+            margin-top: 10px;
+            background-color: white;
+            color: black;
+            border-radius: 6px;
+            padding: 6px;
+            font-size: 18px;
+        }
+
+        .dark-mode math-field {
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
+        .sage-doc-link {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            display: block; /* Agar link berada di baris baru */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="floatingMenu">
+        <button class="btn" onclick="addTextBlock()">➕ Teks LaTeX</button>
+        <button class="btn" onclick="addMathliveBlock()">➕ MathLive</button>
+        <button class="btn" onclick="addSageCell()">➕ SageMath</button>
+    </div>
+
+    <button id="toggleMode" class="btn">🌗 Mode Gelap/Terang</button>
+
+    <div class="marquee"><span>📄 Editor LaTeX / Markdown Dinamis + 💻 SageMath Cell Interaktif + ✍️ MathLive Editor</span></div>
+    
+    <h2>Pengembangan Antarmuka Editor Matematika Dinamis Berbasis HTML</h2>
+
+    <div class="block">
+        <h2>Abstrak</h2>
+        <p align="justify">
+            Penggunaan teknologi web untuk pembelajaran matematika interaktif semakin relevan dalam era digital. 
+            Artikel ini membahas perancangan dan implementasi antarmuka berbasis HTML yang memungkinkan pengguna untuk 
+            menuliskan, merender, dan mengevaluasi ekspresi matematika secara dinamis. Sistem ini mengintegrasikan tiga 
+            komponen utama: <strong>\(\LaTeX\) editor</strong> dengan pratinjau langsung, <strong>MathLive</strong> sebagai 
+            editor ekspresi matematis berbasis <b>WYSIWYG</b>, serta <strong>SageMath Cell</strong> sebagai lingkungan komputasi 
+            simbolik. Semua komponen dirancang dalam satu dokumen HTML responsif, tata letak fleksibel, dan penambahan elemen 
+            secara dinamis. Hal ini tentunya sangat mendukung untuk proses pembelajaran matematika secara interaktif yang 
+            tidak hanya mengeksplorasi kemampuan <b>teoritis</b> saja, tetapi dapat mewujudkan menjadi <b>satu kesatuan</b> 
+            yang tak-terpisah: <b>teori</b>, <b>aplikasi (<i>real problem</i>)</b> dan <b>komputasi</b>.
+        </p>
+        <div align="right">
+            <p><b>
+            قَالُوا۟ سُبْحَـٰنَكَ لَا عِلْمَ لَنَآ إِلَّا مَا عَلَّمْتَنَآ ۖ إِنَّكَ أَنتَ ٱلْعَلِيمُ ٱلْحَكِيمُ
+            </b>
+            <br>
+            Surat Al-Baqarah (2:32)
+            </p>
+        </div>
+    </div>
+
+    <div class="block">
+        <h2>1. Pendahuluan</h2>
+        <p align="justify">
+            Dalam pendidikan dan penelitian matematika modern, kemampuan menulis dan mengevaluasi 
+            ekspresi matematika secara digital menjadi kebutuhan utama. Artikel ini memperkenalkan 
+            sistem antarmuka HTML yang menggabungkan:
+        </p>
+        <ul>
+            <li>Editor \(\LaTeX\) berbasis <code>textarea</code> + MathJax</li>
+            <li>Editor simbolik MathLive berbasis <code>&lt;math-field&gt;</code></li>
+            <li>Lingkungan komputasi SageMath yang interaktif</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>2. Desain Sistem</h2>
+        <h3>2.1 Struktur Umum HTML</h3>
+        <p align="justify">Antarmuka dibangun secara modular dan interaktif. Pengguna dapat menambahkan editor 
+            sesuai kebutuhan secara dinamis melalui tombol di pojok kiri layar.
+        </p>
+
+        <h3>2.2 Integrasi Pustaka Eksternal</h3>
+        <ul>
+            <li><strong>MathJax</strong> untuk merender ekspresi \(\LaTeX\)</li>
+            <li><strong>MathLive</strong> untuk input simbolik secara visual</li>
+            <li><strong>SageMath Cell</strong> untuk komputasi matematika secara daring</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>3. Evaluasi dan Representasi Matematis</h2>
+        <p>Sistem ini mendukung tiga tipe representasi matematika:</p>
+        <ul>
+            <li><strong>\(\LaTeX\)</strong>: ditampilkan secara real-time dengan MathJax</li>
+            <li><strong>MathLive</strong>: mendukung input visual seperti akar, pecahan, integral</li>
+            <li><strong>SageMath</strong>: mendukung evaluasi ekspresi seperti:</li>
+        </ul>
+        <pre><code>@interact
+def _(n=(1,10)):
+    print(f"{n}! = {factorial(n)}")</code>
+        </pre>
+    </div>
+
+    <div class="block">
+        <h2>4. Aksesibilitas dan Antarmuka Pengguna</h2>
+        <p align="justify">Antarmuka mendukung mode gelap dan layout yang responsif. 
+            Tombol pojok kiri atas memungkinkan pengguna menambah editor secara efisien tanpa mengganggu konten utama.
+        </p>
+    </div>
+
+    <div class="block">
+        <h2>5. Aplikasi</h2>
+        <ul>
+            <li><strong>Pembelajaran matematika daring</strong></li>
+            <li><strong>Penulisan dokumen ilmiah dengan visualisasi langsung</strong></li>
+            <li><strong>Demo simbolik interaktif dalam seminar atau kuliah tamu</strong></li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>6. Kesimpulan</h2>
+        <p align="justify">
+            Pembahasan menunjukkan bagaimana teknologi web dapat dioptimalkan untuk membuat 
+            lingkungan eksplorasi matematika yang bersifat terbuka, dinamis, dan mudah diakses. Dengan 
+            menggabungkan <b>MathJax</b>, <b>dan SageMathCell</b>, sistem ini mendukung pengalaman belajar dan 
+            penelitian matematika yang lebih interaktif dan fleksibel. Tentunya juga dapat digunakan sebagai pengganti
+            "<b>Laboratorium Matematika</b>" dengan biaya yang murah, hanya dibutuhkan <b>akses internet!</b>
+        </p>
+    </div>
+
+    <div class="block">
+        <h2>Referensi</h2>
+        <ol>
+            <li><a href="https://docs.mathjax.org" target="_blank">MathJax Documentation</a></li>
+            <li><a href="https://cortexjs.io/mathlive/" target="_blank">MathLive Editor</a></li>
+            <li><a href="https://sagecell.sagemath.org" target="_blank">SageMath Cell</a></li>
+            <li><a href="https://html.spec.whatwg.org/" target="_blank">HTML Living Standard</a></li>
+            <li><a href="https://www.w3.org/TR/CSS/" target="_blank">W3C CSS Specification</a></li>
+        </ol>
+    </div>
+
+    <h2 class="section-title">1. Editor Teks \(\LaTeX\) / Markdown</h2>
+    <div class="text-block">
+        <textarea id="editor" placeholder="Contoh: \( E=mc^2 \), atau \[ \int_0^1 x^2 dx \]"></textarea>
+        <div id="preview" class="preview"></div>
+        <button class="btn-small" onclick="toggleEditPreview(this, 'editor', 'preview')">↔️ Lihat Pratinjau</button>
+    </div>
+
+    <h2 class="section-title">2. Contoh SageMath Cell</h2>
+    <p align="justify">
+    Contoh berikut adalah hasil dari kode dalam SageMath suatu kalkulator menghitung integral tertentu dan 
+    juga menampilkan grafiknya. Untuk mengeksekusi tekan tombol <button>Aktifkan</button>.Anda bisa mengubah isian 
+    <code>f</code> dan batas-batas integral <code>a</code> dan <code>b</code> sesuai yang anda inginkan. Tekan 
+    tombol Update untuk menampilkan hasil. 
+    </p>
+        <div id="Intent">
+            <script type="text/x-sage">
+x=var('x')
+@interact
+def _(f = -2*sin(x)+x,a=-3,b=5,auto_update=False):
+    q=integrate(f,x).canonicalize_radical()
+    p=integrate(f,x,a,b)
+    r=plot([f],x,a,b,gridlines='minor',\
+            legend_label='automatic',fill = true)
+    r.show(figsize=4)
+    pretty_print(html("Nilai integral:\
+    $$\\int\\limits_{%s}^{%s}\\left(%s\\right)\\,dx=\
+    \\left.%s\\right|_{%s}^{%s}=%s\
+    \\approx %s$$"%(latex(a),latex(b),latex(f),latex(q),\
+                    latex(a),latex(b),latex(p),latex(n(p)))))
+            </script>
+        </div>
+
+    <p align="justify">
+     Selanjutnya kita berikan contoh membuat matriks random ukuran \(5\times 5\) yang elemen-elemennya di 
+     \(\mathbb{Z}\), dan dihitung \(\det(A)\) serta polinomial kharakteristik dari \(A\).
+    </p>
+
+<div id="mycell">
+<script type="text/x-sage">
+A = random_matrix(ZZ, 5)
+d = A.det()
+p = factor(A.charpoly("lambda"))
+
+display(html(r"$A = %s"%(latex(A))))
+display(html(r"$p(\lambda) = %s"%(latex(p))))
+display(html(r"$\det(A) = %s"%(latex(d))))
+</script>
+</div>
+
+    <h2 class="section-title">3. Tambahkan Konten Dinamis (Pilih: Teks LaTex, MathLive atau SageMath!)</h2>
+    
+    <p align="justify">
+    Di pojok kiri atas halaman ini, Anda akan menemukan beberapa tombol mengambang yang berfungsi untuk menambahkan 
+    beragam jenis konten editor secara dinamis. Tombol-tombol ini dirancang untuk memudahkan Anda mengorganisir dan 
+    berinteraksi dengan materi pembelajaran atau penelitian matematika.
+    </p>
+<ul align="justify">
+<li> 
+    <b>➕ Teks LaTeX:</b> Tombol ini memungkinkan Anda untuk <b>menambahkan blok teks baru yang mendukung penulisan 
+        dalam format LaTeX dan Markdown</b>. Setiap blok dilengkapi dengan editor `textarea` dan pratinjau langsung, 
+        sehingga Anda bisa melihat hasil render matematika atau format teks Anda secara <i>real-time</i> berkat 
+        integrasi MathJax.
+</li>
+<li> 
+    <b>➕ MathLive:</b> Dengan menekan tombol ini, Anda bisa <b>menambahkan editor MathLive</b>. Editor ini menyediakan 
+    antarmuka visual (<b>WYSIWYG</b>) untuk menulis ekspresi matematika yang kompleks, seperti pecahan, akar, dan 
+    simbol-simbol khusus, tanpa perlu menghafal sintaks LaTeX. Ideal untuk input formula yang intuitif.
+</li>
+<li> 
+    <b>➕ SageMath:</b> Tombol ini akan <b>menambahkan sel komputasi SageMath</b> ke halaman Anda. SageMath adalah sistem 
+    aljabar komputer yang sangat kuat, memungkinkan Anda melakukan perhitungan simbolik dan numerik, membuat grafik, 
+    serta menjelajahi berbagai konsep matematika secara interaktif. Anda bisa menulis kode dalam bahasa Sage 
+    (yang berbasis Python) dan menjalankannya langsung di peramban.
+</li>
+</ul>
+<p align="justify">
+Dengan adanya tombol-tombol ini, Anda memiliki fleksibilitas untuk membangun dokumen interaktif yang kaya, 
+menggabungkan penjelasan tekstual, formula matematika yang ditulis dengan mudah, dan kemampuan komputasi yang 
+canggih di satu tempat.
+</p>
+    
+    
+    <div id="dynamicArea"></div>
+
+    <script>
+        const textarea = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+
+        function renderMath(inputEl, outputEl) {
+            outputEl.innerHTML = inputEl.value;
+            MathJax.typesetPromise([outputEl]);
+        }
+
+        // Event listener untuk editor utama
+        textarea.addEventListener('input', () => renderMath(textarea, preview));
+
+        window.addEventListener('load', () => {
+            renderMath(textarea, preview);
+            sagecell.makeSagecell({
+                inputLocation: '#mycell',
+                // Mengubah template dari minimal ke default
+                template: sagecell.templates.default, 
+                evalButtonText: 'Jalankan'
+            });
+        });
+
+        // Fungsi asli untuk toggle preview (digunakan di elemen dinamis)
+        function togglePreview(button, previewEl) {
+            if (previewEl.style.display === "none") {
+                previewEl.style.display = "block";
+                button.textContent = "👁️ Sembunyikan";
+            } else {
+                previewEl.style.display = "none";
+                button.textContent = "👁️ Tampilkan";
+            }
+        }
+
+        // Fungsi baru untuk toggle antara editor dan preview
+        function toggleEditPreview(button, editorId, previewId) {
+            const editorEl = document.getElementById(editorId);
+            const previewEl = document.getElementById(previewId);
+
+            if (editorEl.style.display === "none") {
+                // Saat ini preview yang tampil, ganti ke editor
+                editorEl.style.display = "block";
+                previewEl.style.display = "none";
+                button.textContent = "↔️ Lihat Pratinjau";
+            } else {
+                // Saat ini editor yang tampil, ganti ke preview
+                editorEl.style.display = "none";
+                previewEl.style.display = "block";
+                button.textContent = "↔️ Edit Teks";
+                renderMath(editorEl, previewEl); // Pastikan pratinjau diperbarui saat ditampilkan
+            }
+        }
+
+        function addTextBlock() {
+            const container = document.getElementById("dynamicArea");
+            const block = document.createElement("div");
+            block.className = "text-block";
+
+            const ta = document.createElement("textarea");
+            ta.placeholder = "Ketik LaTeX / Markdown di sini...";
+            const prev = document.createElement("div");
+            prev.className = "preview";
+
+            ta.addEventListener("input", () => renderMath(ta, prev));
+            // Awalnya tampilkan editor, sembunyikan preview
+            prev.style.display = "none"; 
+            renderMath(ta, prev); // Render awal
+
+            const toggleBtn = document.createElement("button");
+            toggleBtn.className = "btn-small";
+            toggleBtn.textContent = "↔️ Lihat Pratinjau"; // Teks awal
+            toggleBtn.onclick = function () {
+                toggleEditPreview(toggleBtn, ta.id, prev.id); // Menggunakan ID dinamis
+            };
+
+            // Beri ID unik ke textarea dan preview dinamis
+            const uniqueId = Date.now();
+            ta.id = `editor-${uniqueId}`;
+            prev.id = `preview-${uniqueId}`;
+
+            block.appendChild(ta);
+            block.appendChild(prev);
+            block.appendChild(toggleBtn);
+            container.appendChild(block);
+        }
+
+
+        function addSageCell() {
+            const container = document.getElementById("dynamicArea");
+            const sageContainer = document.createElement("div"); // Wrapper baru
+            sageContainer.className = "sage-container";
+
+            const docLink = document.createElement("a");
+            docLink.href = "https://doc.sagemath.org/";
+            docLink.target = "_blank";
+            docLink.className = "sage-doc-link";
+            docLink.textContent = "📚 Dokumentasi SageMath";
+            sageContainer.appendChild(docLink);
+
+            const newDiv = document.createElement("div");
+            newDiv.className = "compute";
+
+            const script = document.createElement("script");
+            script.type = "text/x-sage";
+            script.textContent = "# Tulis kode SageMath di sini\n";
+
+            newDiv.appendChild(script);
+            sageContainer.appendChild(newDiv); // Masukkan newDiv ke dalam sageContainer
+            container.appendChild(sageContainer); // Masukkan sageContainer ke dynamicArea
+
+            sagecell.makeSagecell({
+                inputLocation: newDiv,
+                // Mengubah template dari minimal ke default
+                template: sagecell.templates.default, 
+                evalButtonText: "Jalankan"
+            });
+        }
+
+        function addMathliveBlock() {
+            const container = document.getElementById("dynamicArea");
+            const block = document.createElement("div");
+            block.className = "text-block";
+
+            const mf = document.createElement("math-field");
+            mf.setAttribute("virtual-keyboard-mode", "onfocus");
+
+            block.appendChild(mf);
+            container.appendChild(block);
+        }
+
+        document.getElementById("toggleMode").addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+        });
+    </script>
+
+</body>
+</html>
