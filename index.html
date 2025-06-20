@@ -355,9 +355,9 @@ Seluruh adegan <b>3D</b> ini ditampilkan tanpa bingkai. Klik tombol <button>Akti
 <script type="text/x-sage">
 from sage.plot.plot3d.shapes import Cone
 import math
-from sage.plot.animate import animate # Pastikan ini diimpor jika belum ada
+from sage.plot.animate import animate
 
-# Definisi objek S dan fungsi f(x, y) seperti sebelumnya
+# Definisi objek
 S = sphere(size=.5, color='yellow')
 S += Cone(.5, .5, color='red').translate(0,0,.3)
 
@@ -367,25 +367,23 @@ S += sphere((.45, .1, .15), size=.1, color='white')
 S += sphere((.51, .1,.17), size=.05, color='black')
 S += sphere((.5, 0, -.2), size=.1, color='yellow')
 
+# Fungsi permukaan
 def f(x, y): return math.exp(x/5)*math.cos(y)
 P = plot3d(f, (-5, 5), (-5, 5), adaptive=True,
            color=['red','yellow'], max_depth=10)
 
-# Gabungkan objek untuk animasi
+# Gabungkan objek dasar
 combined_object = P.scale(.2) + S.translate(1, 0, 0)
 
-# Buat list frame animasi
+# Animasi: rotasi dan naik-turun
 frames = []
-for angle in srange(0, 2*pi, pi/10): # Rotasi dari 0 hingga 2*pi (360 derajat) dengan langkah pi/10
-    # Rotasi objek di sekitar sumbu Z
-    rotated_object = combined_object.rotateZ(angle)
-    # Tambahkan objek grafik yang sudah dirotasi ke list, BUKAN hasil .show()
-    frames.append(rotated_object) # <-- Perubahan di sini!
-
-# Buat animasi dari frames
-animation = animate(frames, aspect_ratio=[1,1,1],frame=False,figsize=[9,9]) # Atur aspek rasio dan hilangkan frame di sini!
+for angle in srange(0, 2*pi, pi/20):  # lebih banyak frame untuk animasi halus
+    z_shift = 2 * math.sin(8 * angle)  # naik turun seperti gelombang
+    rotated = combined_object.rotateZ(angle).translate(0, 0, z_shift)
+    frames.append(rotated)
 
 # Tampilkan animasi
+animation = animate(frames, aspect_ratio=[1,1,1], frame=False, figsize=[9,9])
 animation.show()
 </script>
 </div>
