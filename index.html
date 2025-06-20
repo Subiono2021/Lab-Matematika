@@ -344,9 +344,10 @@ display(html(r"$p(\lambda) = %s"%(latex(p))))
 display(html(r"$\det(A) = %s"%(latex(d))))
 </script>
 </div>
-
+<br>
 <div id="lucu3d">
 <script type="text/x-sage">
+S = sphere(size=.5, color='yellow')
 from sage.plot.plot3d.shapes import Cone
 S += Cone(.5, .5, color='red').translate(0,0,.3)
 
