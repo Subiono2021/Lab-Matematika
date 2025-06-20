@@ -27,6 +27,16 @@
                            evalButtonText: 'Jalankan'});
     </script>
 
+    <script>
+    // Make the div with id 'lucu3d' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#lucu3d',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
+
     <script defer src="https://unpkg.com/mathlive"></script>
     <style>
         body { font-family: sans-serif; max-width: 960px; margin: auto; padding: 20px; }
@@ -334,6 +344,25 @@ display(html(r"$p(\lambda) = %s"%(latex(p))))
 display(html(r"$\det(A) = %s"%(latex(d))))
 </script>
 </div>
+
+<div id="lucu3d">
+<script type="text/x-sage">
+from sage.plot.plot3d.shapes import Cone
+S += Cone(.5, .5, color='red').translate(0,0,.3)
+
+S += sphere((.45, -.1, .15), size=.1, color='white')
+S += sphere((.51,-.1,.17), size=.05, color='black')
+S += sphere((.45, .1, .15), size=.1, color='white')
+S += sphere((.51, .1,.17), size=.05, color='black')
+S += sphere((.5, 0, -.2), size=.1, color='yellow')
+def f(x, y): return math.exp(x/5)*math.cos(y)
+P = plot3d(f, (-5, 5), (-5, 5), adaptive=True,
+           color=['red','yellow'], max_depth=10)
+cape_man = P.scale(.2) + S.translate(1, 0, 0)
+cape_man.show(aspect_ratio=[1, 1, 1])
+</script>
+</div>
+            
 <hr>        
 
 <h2>2. Tambahkan Konten Dinamis (Pilih: Teks \(\LaTeX\), MathLive atau SageMath!)</h2>
