@@ -5,6 +5,10 @@
     <title>Editor Matematika Interaktif</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
     <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
 
     <script>
@@ -30,6 +34,16 @@
     <script>
     // Make the div with id 'lucu3d' a Sage cell
     sagecell.makeSagecell({inputLocation:  '#lucu3d',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
+
+    <script>
+    // Make the div with id 'sikloida' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#sikloida',
                            template:       sagecell.templates.minimal,
                            evalButtonText: 'aktifkan'});
     // Make *any* div with class 'compute' a Sage cell
@@ -387,6 +401,67 @@ animation = animate(frames, aspect_ratio=[1,1,1], frame=False, figsize=[9,9])
 animation.show()
 </script>
 </div>
+
+<h2>🎓 Animasi Gerak Sikloida</h2>
+
+<h3>1. Definisi Sikloida</h3>
+
+<p align="justify">
+Kurva <strong>sikloida</strong> adalah jejak lintasan yang dilalui oleh sebuah 
+<strong>titik tetap pada keliling sebuah lingkaran</strong> yang 
+<strong>menggelinding tanpa slip</strong> (tanpa selip) di sepanjang garis lurus datar. 
+Jika lingkaran menggelinding ke kanan di atas sumbu-x, maka lintasan titik tersebut membentuk 
+kurva parametris:
+</p>
+
+$$
+x(t) = t - \sin(t), \quad y(t) = 1 - \cos(t)
+$$
+
+<p align="justify">
+di mana \( t \) merepresentasikan sudut rotasi lingkaran (dalam radian) saat menggelinding, 
+dan jari-jari lingkaran dianggap \( r = 1 \) (dapat digeneralisasi).
+</p>
+
+<hr>
+
+<h3>2. Komponen-Komponen dalam Kode</h3>
+
+<h4>a. Kurva Sikloida</h4>
+
+<pre><code>sikloida = parametric_plot((t - sin(t), 1 - cos(t)), (t, 0, s), thickness=3)
+</code></pre>
+
+<p align="justify">
+Bagian ini menggambarkan <strong>jejak sikloida</strong> dari \( t = 0 \) hingga \( t = s \), 
+seiring waktu (atau sudut rotasi) \( s \) bertambah. Ini adalah lintasan <strong>historis</strong> 
+dari titik yang menempel di lingkaran.
+</p>
+
+<hr>
+
+<h4>b. Lingkaran Menggelinding</h4>
+
+<pre><code>lingkaran = circle((s, 1), 1, ...)
+</code></pre>
+
+<p align="justify">
+Lingkaran digambarkan dengan pusat di titik \( (s, 1) \), artinya lingkaran bergulir ke kanan sejauh \( s \) 
+sepanjang sumbu-x dan tetap berada di atas garis \( y = 1 \) (karena jari-jarinya 1). 
+Ini mencerminkan <strong>gerak translasi</strong> dari pusat lingkaran.
+</p>
+
+<hr>
+
+<h4>c. Titik Tetap di Keliling</h4>
+
+<pre><code>t_sikloida = (s - sin(s), 1 - cos(s))
+</code></pre>
+
+<p align="justify">
+Titik ini adalah posisi <strong>aktual</strong> dari titik yang berada di tepi lingkaran—mengikuti persamaan sikloida. 
+Ini adalah titik yang melacak jalur sikloida seiring waktu.
+</p>
             
 <hr>        
 
