@@ -460,8 +460,28 @@ Ini mencerminkan <strong>gerak translasi</strong> dari pusat lingkaran.
 
 <p align="justify">
 Titik ini adalah posisi <strong>aktual</strong> dari titik yang berada di tepi lingkaran—mengikuti persamaan sikloida. 
-Ini adalah titik yang melacak jalur sikloida seiring waktu.
+Ini adalah titik yang melacak jalur sikloida seiring waktu. Silahkan tekan tombol <button>Aktifkan</button>!
 </p>
+
+<div id="sikloida">
+<script type="text/x-sage">
+#Animasi sikloida
+
+a = 0.2
+v = []
+t = var("t")
+for s in srange(0.01, 4.0*pi, a):
+    sikloida = parametric_plot((t-sin(t),1-cos(t)), (t, 0, s),thickness=3)
+    t_sikloida = (s-sin(s),1-cos(s))
+    lingkaran = circle((s,1),1,thickness=2,rgbcolor='green')
+    lingkaran1 = circle((s,1),0.5,thickness=4,fill=True,edgecolor='red')
+    titik = point(t_sikloida, pointsize=90, rgbcolor="brown")
+    garis = line([(s, 1),t_sikloida], thickness=4,color="red")
+    v.append(sikloida + lingkaran + lingkaran1 + titik + garis)
+a = animate(v, figsize=[10,2], aspect_ratio=1, xmin=0.5,xmax=14, ymin=0, ymax=2.2)    
+show(a)
+</script>
+</div>
             
 <hr>        
 
