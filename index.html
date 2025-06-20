@@ -345,16 +345,19 @@ display(html(r"$\det(A) = %s"%(latex(d))))
 </script>
 </div>
 <p align="justify">
-Gambar berikut ini menampilkan wajah kartun 3D yang terdiri dari bola kuning sebagai kepala, 
+Gambar berikut ini menampilkan animasi wajah kartun 3D yang terdiri dari bola kuning sebagai kepala, 
 kerucut merah sebagai hidung atau topi, bola putih dan hitam sebagai mata, dan bola 
 kuning kecil sebagai mulut. Objek wajah ini digabungkan dengan plot <b>3D</b> dari fungsi 
 matematika <code>f(x, y) = exp(x/5)*cos(y)</code>, yang ditampilkan dengan gradasi warna merah dan kuning. 
-Seluruh adegan <b>3D</b> ini ditampilkan tanpa bingkai. Anda bisa menggerakan gambar dengan
-klik kiri mouse dan gerakan  muose!
+Seluruh adegan <b>3D</b> ini ditampilkan tanpa bingkai. Klik tombol <button>Jalankan</button>!
 </p>
 <div id="lucu3d">
 <script type="text/x-sage">
 from sage.plot.plot3d.shapes import Cone
+import math
+from sage.plot.animate import animate # Pastikan ini diimpor jika belum ada
+
+# Definisi objek S dan fungsi f(x, y) seperti sebelumnya
 S = sphere(size=.5, color='yellow')
 S += Cone(.5, .5, color='red').translate(0,0,.3)
 
@@ -363,11 +366,27 @@ S += sphere((.51,-.1,.17), size=.05, color='black')
 S += sphere((.45, .1, .15), size=.1, color='white')
 S += sphere((.51, .1,.17), size=.05, color='black')
 S += sphere((.5, 0, -.2), size=.1, color='yellow')
+
 def f(x, y): return math.exp(x/5)*math.cos(y)
 P = plot3d(f, (-5, 5), (-5, 5), adaptive=True,
            color=['red','yellow'], max_depth=10)
-cape_man = P.scale(.2) + S.translate(1, 0, 0)
-cape_man.show(aspect_ratio=[1, 1, 1], frame=False)
+
+# Gabungkan objek untuk animasi
+combined_object = P.scale(.2) + S.translate(1, 0, 0)
+
+# Buat list frame animasi
+frames = []
+for angle in srange(0, 2*pi, pi/10): # Rotasi dari 0 hingga 2*pi (360 derajat) dengan langkah pi/10
+    # Rotasi objek di sekitar sumbu Z
+    rotated_object = combined_object.rotateZ(angle)
+    # Tambahkan objek grafik yang sudah dirotasi ke list, BUKAN hasil .show()
+    frames.append(rotated_object) # <-- Perubahan di sini!
+
+# Buat animasi dari frames
+animation = animate(frames, aspect_ratio=[1,1,1],frame=False,figsize=[9,9]) # Atur aspek rasio dan hilangkan frame di sini!
+
+# Tampilkan animasi
+animation.show()
 </script>
 </div>
             
