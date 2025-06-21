@@ -497,13 +497,13 @@ Caesar Cipher yang diaplikasikan pada tingkat byte.
 Bagian pertama dari sistem ini membangun struktur matematika yang mendasari ECDH:</p>
 <ul align="justify">
 <li>
-<strong>Kurva Eliptik di atas Lapangan Berhingga (Finite Field) $GF(p)$:</strong>
-Sebuah kurva eliptik $E$ didefinisikan oleh persamaan Weierstrass pendek $y^2 = x^3 + Ax + B \pmod{p}$. 
-Dalam konteks ini, kurva tersebut bekerja di atas <span class="math">lapangan hingga (finite field)</span> $GF(211)$.
+<strong>Kurva Eliptik atas Lapangan Berhingga (Finite Field) \(GF(p)\):</strong>
+Sebuah kurva eliptik \(E\) didefinisikan oleh persamaan Weierstrass pendek \(y^2 = x^3 + Ax + B \pmod{p}\). 
+Dalam konteks ini, kurva tersebut bekerja di atas <span class="math">lapangan hingga (finite field)</span> \(GF(211)\).
 <br><br>
 <p align="justify">
-<strong>Ukuran Lapangan Berhingga:</strong> Lapangan berhingga yang digunakan adalah $GF(211)$, yang berarti modulus $p$ adalah 211. 
-Ini adalah lapangan prima, juga dilambangkan sebagai $\mathbb{Z}_{211}$ atau $\mathbb{F}_{211}$. Ukurannya adalah 211 elemen. 
+<strong>Ukuran Lapangan Berhingga:</strong> Lapangan berhingga yang digunakan adalah \(GF(211)\), yang berarti modulus $p$ adalah 211. 
+Ini adalah lapangan prima, juga dilambangkan sebagai \(\mathbb{Z}_{211}\) atau \(\mathbb{F}_{211}\). Ukurannya adalah 211 elemen. 
 Setiap elemen dalam lapangan ini adalah bilangan bulat dari $0$ hingga $210$. Semua operasi aritmetika (penjumlahan, pengurangan, 
 perkalian, dan pembagian) pada koordinat titik-titik kurva eliptik dilakukan modulo 211.
 </p>
@@ -529,10 +529,10 @@ memungkinkan representasi bilangan yang tepat dan operasi aritmetika yang determ
 </li>
 </ol>
 <p align="justify">
-<strong>Mengapa $p=211$ Digunakan? (Alasan Didaktis/Demonstrasi):</strong>
+<strong>Mengapa \(p=211\) Digunakan? (Alasan Didaktis/Demonstrasi):</strong>
 </p>
 <p align="justify">
-Pemilihan $p=211$ adalah karakteristik yang sangat umum dalam contoh atau simulasi kriptografi kurva eliptik untuk tujuan pendidikan 
+Pemilihan \(p=211\) adalah karakteristik yang sangat umum dalam contoh atau simulasi kriptografi kurva eliptik untuk tujuan pendidikan 
 dan demonstrasi, bukan untuk keamanan dunia nyata. Ada beberapa alasan utama untuk ini:
 </p>
 <ol align="justify">
@@ -543,7 +543,7 @@ dalam skala kecil. Ini membantu dalam memahami prinsip-prinsip dasar tanpa terbe
 </li>
 <li>
 <strong>Sumber Daya Komputasi Minimal:</strong> Menghitung dan mensimulasikan operasi pada lapangan yang sangat besar membutuhkan 
-sumber daya komputasi yang signifikan. Dengan $p=211$, komputasi sangat cepat dan ringan, cocok untuk lingkungan interaktif seperti 
+sumber daya komputasi yang signifikan. Dengan \(p=211\), komputasi sangat cepat dan ringan, cocok untuk lingkungan interaktif seperti 
 SageMathCell.
 </li>
 <li>
@@ -559,31 +559,31 @@ tanpa terganggu oleh detail pemilihan parameter keamanan tingkat industri.
 </ol>
 <p align="justify">
 <strong>Penting: Tidak Aman untuk Penggunaan Nyata!</strong></p>
-<p align="justify">Meskipun $p=211$ ideal untuk demonstrasi, <b>ukuran lapangan ini sama sekali tidak aman untuk aplikasi kriptografi dunia nyata.</b> 
+<p align="justify">Meskipun \(p=211\) ideal untuk demonstrasi, <b>ukuran lapangan ini sama sekali tidak aman untuk aplikasi kriptografi dunia nyata.</b> 
 Sebuah lapangan berhingga dengan modulus 211 elemen terlalu kecil. Masalah logaritma diskrit kurva eliptik (ECDLP) pada kurva yang didefinisikan 
-atas $GF(211)$ dapat diselesaikan dengan mudah oleh komputer modern menggunakan algoritma brute-force atau algoritma lain yang lebih canggih dalam 
+atas \(GF(211)\) dapat diselesaikan dengan mudah oleh komputer modern menggunakan algoritma brute-force atau algoritma lain yang lebih canggih dalam 
 waktu yang sangat singkat. Untuk keamanan yang memadai saat ini, lapangan berhingga harus memiliki ukuran yang setidaknya setara dengan kekuatan 
-kunci 128-bit, 256-bit, atau lebih, yang berarti $p$ akan menjadi bilangan prima yang sangat besar (misalnya, $2^{255} - 19$ untuk Curve25519, 
+kunci 128-bit, 256-bit, atau lebih, yang berarti \(p\) akan menjadi bilangan prima yang sangat besar (misalnya, \(2^{255} - 19\) untuk Curve25519, 
 atau bilangan prima berukuran ratusan digit desimal).
 </p>
-Pilihan $A=0$ dan $B=7$ membentuk kurva spesifik $y^2 = x^3 + 7 \pmod{211}$.
+Pilihan \(A=0\) dan \(B=7\) membentuk kurva spesifik \(y^2 = x^3 + 7 \pmod{211}\).
 </li>
 <li>
-<strong>Titik Dasar (Generator) $G$:</strong>
-Sebuah titik $G$ dipilih pada kurva $E$. Titik ini disebut generator karena melalui operasi "penjumlahan titik" pada kurva, setiap 
-kelipatan skalar dari $G$ akan menghasilkan titik lain pada kurva. $G$ adalah parameter publik yang disepakati oleh semua pihak 
+<strong>Titik Dasar (Generator) \(G\):</strong>
+Sebuah titik \(G\) dipilih pada kurva \(E\). Titik ini disebut generator karena melalui operasi "penjumlahan titik" pada kurva, setiap 
+kelipatan skalar dari \(G\) akan menghasilkan titik lain pada kurva. \(G\) adalah parameter publik yang disepakati oleh semua pihak 
 yang berkomunikasi.
 </li>
 <li>
-<strong>Orde Titik $n$:</strong>
-Orde dari titik $G$, dinotasikan sebagai $n$, adalah bilangan bulat positif terkecil sedemikian rupa sehingga $n \cdot G = \mathcal{O}$, 
-di mana $\mathcal{O}$ adalah "titik di tak hingga" atau elemen identitas dalam grup aditif poin-poin pada kurva eliptik. Nilai $n$ ini 
-krusial karena semua kunci privat harus dipilih dari himpunan $\{1, 2, \ldots, n-1\}$. Ini menjamin bahwa operasi perkalian skalar 
+<strong>Orde Titik \(n\):</strong>
+Orde dari titik \(G\), dinotasikan sebagai \(n\), adalah bilangan bulat positif terkecil sedemikian rupa sehingga \(n \cdot G = \mathcal{O}\), 
+di mana \(\mathcal{O}\) adalah "titik di tak hingga" atau elemen identitas dalam grup aditif poin-poin pada kurva eliptik. Nilai \(n\) ini 
+krusial karena semua kunci privat harus dipilih dari himpunan \(\{1, 2, \ldots, n-1\}\). Ini menjamin bahwa operasi perkalian skalar 
 tetap berada dalam grup yang terdefinisi dengan baik dan aman dari serangan tertentu.
 </li>
 </ul>
 Keamanan ECDH secara fundamental bergantung pada kesulitan komputasi dari <em>Elliptic Curve Discrete Logarithm Problem (ECDLP)</em>. 
-Yakni, diberikan $G$ dan $kG$, sangat sulit untuk menentukan skalar $k$ dalam waktu yang efisien (polinomial).
+Yakni, diberikan \(G\) dan \(kG\), sangat sulit untuk menentukan skalar \(k\) dalam waktu yang efisien (polinomial).
 </li>
 
 <h2>2. Mekanisme Pertukaran Kunci ECDH</h2>
@@ -592,22 +592,23 @@ Proses pertukaran kunci melibatkan dua pihak, sebut saja Alice dan Bob:
 </p>
 <ul align="justify">
 <li><strong>Pemilihan Kunci Privat:</strong>
-Alice secara acak memilih bilangan bulat $a \in \{1, \ldots, n-1\}$ sebagai kunci privatnya. Bob secara acak memilih bilangan 
-bulat $b \in \{1, \ldots, n-1\}$ sebagai kunci privatnya. Kedua nilai ini dijaga kerahasiaannya.
+Alice secara acak memilih bilangan bulat \(a \in \{1, \ldots, n-1\}\) sebagai kunci privatnya. Bob secara acak memilih bilangan 
+bulat \(b \in \{1, \ldots, n-1\}\) sebagai kunci privatnya. Kedua nilai ini dijaga kerahasiaannya.
 </li>
 <li>
 <strong>Perhitungan Kunci Publik:</strong>
-Alice menghitung kunci publiknya $A = a \cdot G$. Bob menghitung kunci publiknya $B = b \cdot G$. Titik-titik $A$ dan $B$ ini 
-dipertukarkan melalui saluran yang tidak aman. Meskipun $A$ dan $B$ diketahui publik, sulit untuk menurunkan $a$ dari $A$ atau $b$ dari 
-$B$ karena ECDLP.
+Alice menghitung kunci publiknya \(A = a \cdot G\). Bob menghitung kunci publiknya \(B = b \cdot G\). Titik-titik \(A\) dan \(B\) ini 
+dipertukarkan melalui saluran yang tidak aman. Meskipun \(A\) dan \(B\) diketahui publik, sulit untuk menurunkan \(a\) dari \(A\) atau \(b\) dari 
+\(B\) karena ECDLP.
 </li>
 <li><strong>Derivasi Kunci Bersama (Shared Secret):</strong>
-Setelah menerima kunci publik Bob ($B$), Alice menghitung kunci bersama $K_1 = a \cdot B = a \cdot (b \cdot G) = (ab) \cdot G$.
-Serentak, setelah menerima kunci publik Alice ($A$), Bob menghitung kunci bersama $K_2 = b \cdot A = b \cdot (a \cdot G) = (ba) \cdot G$.
-Karena sifat komutatif dari perkalian skalar pada kurva eliptik, $(ab) \cdot G = (ba) \cdot G$. Oleh karena itu, $K_1 = K_2$. Titik $K = (x_K, y_K)$ ini adalah kunci bersama rahasia yang telah disepakati oleh Alice dan Bob.</li>
+Setelah menerima kunci publik Bob ($B$), Alice menghitung kunci bersama \(K_1 = a \cdot B = a \cdot (b \cdot G) = (ab) \cdot G\).
+Serentak, setelah menerima kunci publik Alice (\(A\)), Bob menghitung kunci bersama \(K_2 = b \cdot A = b \cdot (a \cdot G) = (ba) \cdot G\).
+Karena sifat komutatif dari perkalian skalar pada kurva eliptik, \((ab) \cdot G = (ba) \cdot G\). Oleh karena itu, \(K_1 = K_2\). Titik \(K = (x_K, y_K)\) 
+ini adalah kunci bersama rahasia yang telah disepakati oleh Alice dan Bob.</li>
 <li><strong>Ekstraksi Kunci Simetris:</strong>
-Untuk digunakan dalam algoritma simetris yang lebih sederhana, koordinat $x$ dari titik kunci bersama $K$ (yaitu $x_K$) diekstrak. 
-Nilai $x_K$ ini kemudian direduksi modulo 256 ($k = x_K \pmod{256}$). Pemilihan modulo 256 ini spesifik karena kunci ini akan digunakan untuk 
+Untuk digunakan dalam algoritma simetris yang lebih sederhana, koordinat \(x\) dari titik kunci bersama \(K\) (yaitu \(x_K\)) diekstrak. 
+Nilai \(x_K\) ini kemudian direduksi modulo 256 (\(k = x_K \pmod{256}\)). Pemilihan modulo 256 ini spesifik karena kunci ini akan digunakan untuk 
 operasi pada byte (nilai 0-255).
 </li>
 </ul>
@@ -623,11 +624,11 @@ Pesan teks diubah menjadi urutan byte menggunakan pengkodean UTF-8. Setiap karak
 setiap byte memiliki nilai dari 0 hingga 255.
 </li>
 <li><strong>Proses Enkripsi:</strong>
-Untuk setiap byte $x$ dalam pesan asli, nilai terenkripsi $c$ dihitung sebagai $c = (x + k) \pmod{256}$. Ini adalah pergeseran 
-siklik sederhana di mana setiap byte "digeser" sejauh $k$ posisi dalam domain 0-255.
+Untuk setiap byte \(x\) dalam pesan asli, nilai terenkripsi \(c\) dihitung sebagai \(c = (x + k) \pmod{256}\). Ini adalah pergeseran 
+siklik sederhana di mana setiap byte "digeser" sejauh \(k\) posisi dalam domain 0-255.
 </li>
 <li><strong>Proses Dekripsi:</strong>
-Untuk mendekripsi, prosesnya dibalik. Setiap byte terenkripsi $c'$ didekripsi menjadi $d = (c' - k) \pmod{256}$. Operasi pengurangan 
+Untuk mendekripsi, prosesnya dibalik. Setiap byte terenkripsi \(c'\) didekripsi menjadi \(d = (c' - k) \pmod{256}\). Operasi pengurangan 
 ini mengembalikan byte ke nilai aslinya, dengan memastikan hasilnya tetap dalam rentang 0-255 melalui operasi modulo.
 </li>
 <li><strong>Konversi Kembali ke Teks:</strong>
@@ -647,8 +648,8 @@ Simulasi ini secara elegan menunjukkan bagaimana konsep-konsep matematika abstra
 matematis yang disorot meliputi:
 </p>
 <ul align="justify">
-<li><
-strong>Kesulitan Komputasi:</strong> Keamanan ECDH secara inheren bergantung pada sulitnya ECDLP, yang dianggap jauh lebih sulit 
+<li>
+<strong>Kesulitan Komputasi:</strong> Keamanan ECDH secara inheren bergantung pada sulitnya ECDLP, yang dianggap jauh lebih sulit 
 daripada masalah logaritma diskrit pada grup siklik standar dengan ukuran kunci yang sama, memungkinkan ukuran kunci yang lebih 
 pendek untuk tingkat keamanan yang setara.
 </li>
@@ -657,7 +658,7 @@ pendek untuk tingkat keamanan yang setara.
 bawah operasi penjumlahan titik, yang merupakan struktur matematika ideal untuk membangun skema kriptografi kunci publik.
 </li>
 <li>
-<strong>Modulus Aritmetika:</strong> Penggunaan operasi modulo (baik dalam definisi kurva $GF(p)$ maupun dalam Caesar 
+<strong>Modulus Aritmetika:</strong> Penggunaan operasi modulo (baik dalam definisi kurva \(GF(p)\) maupun dalam Caesar 
 Cipher modulo 256) adalah fundamental dalam kriptografi untuk membatasi nilai dalam rentang yang terdefinisi dan untuk 
 memungkinkan operasi "wrap-around" yang penting untuk enkripsi dan dekripsi.
 </li>
@@ -679,7 +680,6 @@ keamanan informasi, menunjukkan prinsip-prinsip dasar yang membentuk tulang pung
 
 <div id="sagemath-ecc">
 <textarea>
-@interact
 E = EllipticCurve(GF(211), [0, 7])
 G = E.gens()[0]
 n = G.order()
