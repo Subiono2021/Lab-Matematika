@@ -483,8 +483,189 @@ show(a)
 </script>
 </div>
 
-<h2>🔐 Simulasi Kriptografi Hybrid: ECDH + "AES" (Hash XOR)</h2>
-<p>Simulasi ini menunjukkan pertukaran kunci ECDH dan enkripsi sederhana menggunakan <code>hash XOR</code> (bukan AES asli karena keterbatasan lingkungan).</p>
+<h2>Analisis Matematika Kriptografi Hybrid (ECDH + Caesar Cipher)</h2>
+
+<p align="justify">
+Sistem kriptografi yang dijelaskan mengilustrasikan pendekatan hibrida, menggabungkan kekuatan matematika dari 
+kurva eliptik untuk pertukaran kunci dengan kesederhanaan operasional dari skema enkripsi simetris. Inti dari 
+sistem ini terletak pada dua komponen utama: pertukaran kunci Diffie-Hellman berbasis Kurva Eliptik (ECDH) dan 
+Caesar Cipher yang diaplikasikan pada tingkat byte.
+</p>
+
+<h2>1. Fondasi Matematika Kurva Eliptik di Lapangan Berhingga</h2>
+<p align="justify">
+Bagian pertama dari sistem ini membangun struktur matematika yang mendasari ECDH:</p>
+<ul align="justify">
+<li>
+<strong>Kurva Eliptik di atas Lapangan Berhingga (Finite Field) $GF(p)$:</strong>
+Sebuah kurva eliptik $E$ didefinisikan oleh persamaan Weierstrass pendek $y^2 = x^3 + Ax + B \pmod{p}$. 
+Dalam konteks ini, kurva tersebut bekerja di atas <span class="math">lapangan hingga (finite field)</span> $GF(211)$.
+<br><br>
+<p align="justify">
+<strong>Ukuran Lapangan Berhingga:</strong> Lapangan berhingga yang digunakan adalah $GF(211)$, yang berarti modulus $p$ adalah 211. 
+Ini adalah lapangan prima, juga dilambangkan sebagai $\mathbb{Z}_{211}$ atau $\mathbb{F}_{211}$. Ukurannya adalah 211 elemen. 
+Setiap elemen dalam lapangan ini adalah bilangan bulat dari $0$ hingga $210$. Semua operasi aritmetika (penjumlahan, pengurangan, 
+perkalian, dan pembagian) pada koordinat titik-titik kurva eliptik dilakukan modulo 211.
+</p>
+<p align="justify">
+<strong>Alasan Penggunaan Lapangan Berhingga:</strong>
+</p>
+<ol align="justify">
+<li>
+<strong>Keamanan:</strong> Kriptografi kurva eliptik sangat bergantung pada masalah logaritma diskrit yang didefinisikan atas grup siklik. 
+Ketika kurva eliptik didefinisikan di atas lapangan berhingga, titik-titik pada kurva tersebut membentuk grup aditif terbatas (finite abelian group). 
+Keterbatasan ini esensial untuk mendefinisikan masalah logaritma diskrit kurva eliptik (ECDLP) yang secara komputasi sulit untuk dipecahkan. 
+Jika kurva didefinisikan di atas lapangan bilangan real atau kompleks, masalah logaritma diskrit akan trivial untuk dipecahkan.
+</li>
+<li>
+<strong>
+Diskritisasi:</strong> Lapangan berhingga membuat ruang pencarian untuk kunci menjadi diskrit dan terbatas, yang merupakan prasyarat untuk 
+algoritma kriptografi yang mengandalkan kompleksitas komputasi. Tanpa diskritisasi, tidak ada konsep "memecahkan" suatu masalah dalam jumlah 
+langkah terbatas.
+</li>
+<li>
+<strong>Implementasi Komputer:</strong> Komputer bekerja dengan angka diskrit dan presisi terbatas. Menggunakan lapangan berhingga 
+memungkinkan representasi bilangan yang tepat dan operasi aritmetika yang deterministik dan efisien menggunakan aritmetika modular.
+</li>
+</ol>
+<p align="justify">
+<strong>Mengapa $p=211$ Digunakan? (Alasan Didaktis/Demonstrasi):</strong>
+</p>
+<p align="justify">
+Pemilihan $p=211$ adalah karakteristik yang sangat umum dalam contoh atau simulasi kriptografi kurva eliptik untuk tujuan pendidikan 
+dan demonstrasi, bukan untuk keamanan dunia nyata. Ada beberapa alasan utama untuk ini:
+</p>
+<ol align="justify">
+<li>
+<strong>Kemudahan Pemahaman dan Komputasi Manual (bagi manusia):</strong> Dengan modulus yang kecil, konsep operasi modulo dan 
+aritmetika kurva eliptik (seperti penjumlahan titik) menjadi lebih mudah untuk diilustrasikan dan bahkan dihitung secara manual 
+dalam skala kecil. Ini membantu dalam memahami prinsip-prinsip dasar tanpa terbebani oleh angka-angka yang sangat besar.
+</li>
+<li>
+<strong>Sumber Daya Komputasi Minimal:</strong> Menghitung dan mensimulasikan operasi pada lapangan yang sangat besar membutuhkan 
+sumber daya komputasi yang signifikan. Dengan $p=211$, komputasi sangat cepat dan ringan, cocok untuk lingkungan interaktif seperti 
+SageMathCell.
+</li>
+<li>
+<strong>Visualisasi (Potensial):</strong> Meskipun tidak diimplementasikan dalam kode ini, kurva eliptik di atas lapangan kecil 
+kadang-kadang dapat divisualisasikan dengan memplot titik-titiknya, yang tidak mungkin dilakukan dengan lapangan berhingga yang 
+sangat besar.
+</li>
+<li>
+<strong>Fokus pada Konsep, Bukan Kekuatan Brute-Force:</strong> Tujuan dari kode ini adalah untuk mendemonstrasikan <em>bagaimana</em> 
+ECDH bekerja, bukan untuk menyediakan implementasi yang tak terpecahkan. Menggunakan $p=211$ memungkinkan fokus pada alur kriptografi 
+tanpa terganggu oleh detail pemilihan parameter keamanan tingkat industri.
+</li>
+</ol>
+<p align="justify">
+<strong>Penting: Tidak Aman untuk Penggunaan Nyata!</strong></p>
+<p align="justify">Meskipun $p=211$ ideal untuk demonstrasi, <b>ukuran lapangan ini sama sekali tidak aman untuk aplikasi kriptografi dunia nyata.</b> 
+Sebuah lapangan berhingga dengan modulus 211 elemen terlalu kecil. Masalah logaritma diskrit kurva eliptik (ECDLP) pada kurva yang didefinisikan 
+atas $GF(211)$ dapat diselesaikan dengan mudah oleh komputer modern menggunakan algoritma brute-force atau algoritma lain yang lebih canggih dalam 
+waktu yang sangat singkat. Untuk keamanan yang memadai saat ini, lapangan berhingga harus memiliki ukuran yang setidaknya setara dengan kekuatan 
+kunci 128-bit, 256-bit, atau lebih, yang berarti $p$ akan menjadi bilangan prima yang sangat besar (misalnya, $2^{255} - 19$ untuk Curve25519, 
+atau bilangan prima berukuran ratusan digit desimal).
+</p>
+Pilihan $A=0$ dan $B=7$ membentuk kurva spesifik $y^2 = x^3 + 7 \pmod{211}$.
+</li>
+<li>
+<strong>Titik Dasar (Generator) $G$:</strong>
+Sebuah titik $G$ dipilih pada kurva $E$. Titik ini disebut generator karena melalui operasi "penjumlahan titik" pada kurva, setiap 
+kelipatan skalar dari $G$ akan menghasilkan titik lain pada kurva. $G$ adalah parameter publik yang disepakati oleh semua pihak 
+yang berkomunikasi.
+</li>
+<li>
+<strong>Orde Titik $n$:</strong>
+Orde dari titik $G$, dinotasikan sebagai $n$, adalah bilangan bulat positif terkecil sedemikian rupa sehingga $n \cdot G = \mathcal{O}$, 
+di mana $\mathcal{O}$ adalah "titik di tak hingga" atau elemen identitas dalam grup aditif poin-poin pada kurva eliptik. Nilai $n$ ini 
+krusial karena semua kunci privat harus dipilih dari himpunan $\{1, 2, \ldots, n-1\}$. Ini menjamin bahwa operasi perkalian skalar 
+tetap berada dalam grup yang terdefinisi dengan baik dan aman dari serangan tertentu.
+</li>
+</ul>
+Keamanan ECDH secara fundamental bergantung pada kesulitan komputasi dari <em>Elliptic Curve Discrete Logarithm Problem (ECDLP)</em>. 
+Yakni, diberikan $G$ dan $kG$, sangat sulit untuk menentukan skalar $k$ dalam waktu yang efisien (polinomial).
+</li>
+
+<h2>2. Mekanisme Pertukaran Kunci ECDH</h2>
+<p align="justify">
+Proses pertukaran kunci melibatkan dua pihak, sebut saja Alice dan Bob:
+</p>
+<ul align="justify">
+<li><strong>Pemilihan Kunci Privat:</strong>
+Alice secara acak memilih bilangan bulat $a \in \{1, \ldots, n-1\}$ sebagai kunci privatnya. Bob secara acak memilih bilangan 
+bulat $b \in \{1, \ldots, n-1\}$ sebagai kunci privatnya. Kedua nilai ini dijaga kerahasiaannya.
+</li>
+<li>
+<strong>Perhitungan Kunci Publik:</strong>
+Alice menghitung kunci publiknya $A = a \cdot G$. Bob menghitung kunci publiknya $B = b \cdot G$. Titik-titik $A$ dan $B$ ini 
+dipertukarkan melalui saluran yang tidak aman. Meskipun $A$ dan $B$ diketahui publik, sulit untuk menurunkan $a$ dari $A$ atau $b$ dari 
+$B$ karena ECDLP.
+</li>
+<li><strong>Derivasi Kunci Bersama (Shared Secret):</strong>
+Setelah menerima kunci publik Bob ($B$), Alice menghitung kunci bersama $K_1 = a \cdot B = a \cdot (b \cdot G) = (ab) \cdot G$.
+Serentak, setelah menerima kunci publik Alice ($A$), Bob menghitung kunci bersama $K_2 = b \cdot A = b \cdot (a \cdot G) = (ba) \cdot G$.
+Karena sifat komutatif dari perkalian skalar pada kurva eliptik, $(ab) \cdot G = (ba) \cdot G$. Oleh karena itu, $K_1 = K_2$. Titik $K = (x_K, y_K)$ ini adalah kunci bersama rahasia yang telah disepakati oleh Alice dan Bob.</li>
+<li><strong>Ekstraksi Kunci Simetris:</strong>
+Untuk digunakan dalam algoritma simetris yang lebih sederhana, koordinat $x$ dari titik kunci bersama $K$ (yaitu $x_K$) diekstrak. 
+Nilai $x_K$ ini kemudian direduksi modulo 256 ($k = x_K \pmod{256}$). Pemilihan modulo 256 ini spesifik karena kunci ini akan digunakan untuk 
+operasi pada byte (nilai 0-255).
+</li>
+</ul>
+
+<h2>3. Enkripsi dan Dekripsi dengan Caesar Cipher Sederhana</h2>
+<p align="justify">
+Setelah kunci simetris $k$ berhasil didapatkan melalui ECDH, ia digunakan untuk mengamankan pesan data. Meskipun dalam praktiknya 
+digunakan algoritma simetris modern seperti AES, simulasi ini menggunakan modifikasi Caesar Cipher:
+</p>
+<ul align="justify">
+<li><strong>Representasi Pesan:</strong>
+Pesan teks diubah menjadi urutan byte menggunakan pengkodean UTF-8. Setiap karakter diwakili oleh satu atau lebih byte, dengan 
+setiap byte memiliki nilai dari 0 hingga 255.
+</li>
+<li><strong>Proses Enkripsi:</strong>
+Untuk setiap byte $x$ dalam pesan asli, nilai terenkripsi $c$ dihitung sebagai $c = (x + k) \pmod{256}$. Ini adalah pergeseran 
+siklik sederhana di mana setiap byte "digeser" sejauh $k$ posisi dalam domain 0-255.
+</li>
+<li><strong>Proses Dekripsi:</strong>
+Untuk mendekripsi, prosesnya dibalik. Setiap byte terenkripsi $c'$ didekripsi menjadi $d = (c' - k) \pmod{256}$. Operasi pengurangan 
+ini mengembalikan byte ke nilai aslinya, dengan memastikan hasilnya tetap dalam rentang 0-255 melalui operasi modulo.
+</li>
+<li><strong>Konversi Kembali ke Teks:</strong>
+Byte yang telah didekripsi kemudian diubah kembali menjadi representasi teks menggunakan pengkodean UTF-8.
+</li>
+</ul>
+<p align="justify">
+Penting untuk dicatat bahwa Caesar Cipher sendiri sangat lemah dan mudah dipecahkan (misalnya, melalui analisis frekuensi). 
+Dalam konteks kriptografi hibrida, algoritma simetris seperti ini berfungsi sebagai placeholder untuk algoritma yang jauh lebih 
+kuat (misalnya, AES), yang dapat mengenkripsi volume data besar secara efisien menggunakan kunci bersama yang aman dari ECDH.
+</p>
+
+<h2>4. Implikasi dan Signifikansi Matematika</h2>
+<p align="justify">
+Simulasi ini secara elegan menunjukkan bagaimana konsep-konsep matematika abstrak dari teori bilangan dan geometri aljabar 
+(melalui kurva eliptik) dapat diterapkan untuk menyelesaikan masalah praktis di dunia nyata, yaitu komunikasi aman. Aspek kunci 
+matematis yang disorot meliputi:
+</p>
+<ul align="justify">
+<li><
+strong>Kesulitan Komputasi:</strong> Keamanan ECDH secara inheren bergantung pada sulitnya ECDLP, yang dianggap jauh lebih sulit 
+daripada masalah logaritma diskrit pada grup siklik standar dengan ukuran kunci yang sama, memungkinkan ukuran kunci yang lebih 
+pendek untuk tingkat keamanan yang setara.
+</li>
+<li>
+<strong>Grup Abelian:</strong> Titik-titik pada kurva eliptik (bersama dengan titik di tak hingga) membentuk grup abelian di 
+bawah operasi penjumlahan titik, yang merupakan struktur matematika ideal untuk membangun skema kriptografi kunci publik.
+</li>
+<li>
+<strong>Modulus Aritmetika:</strong> Penggunaan operasi modulo (baik dalam definisi kurva $GF(p)$ maupun dalam Caesar 
+Cipher modulo 256) adalah fundamental dalam kriptografi untuk membatasi nilai dalam rentang yang terdefinisi dan untuk 
+memungkinkan operasi "wrap-around" yang penting untuk enkripsi dan dekripsi.
+</li>
+</ul>
+<p align="justify">
+Secara keseluruhan, sistem ini berfungsi sebagai jembatan yang kuat antara teori matematika murni dan penerapannya dalam 
+keamanan informasi, menunjukkan prinsip-prinsip dasar yang membentuk tulang punggung banyak protokol komunikasi aman modern.
+</p>
 
 <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
 <script>
@@ -499,54 +680,54 @@ show(a)
 <div id="sagemath-ecc">
 <textarea>
 @interact
-def _(pesan=input_box("Halo Bob, ini pesan rahasia dari Alice", width=60),
-      langkah=selector(['1. Buat Kunci ECC',
-                        '2. Derivasi Kunci Rahasia',
-                        '3. Enkripsi (Simulasi XOR)',
-                        '4. Dekripsi (Simulasi XOR)'],
-                       label="Pilih Langkah:", buttons=True)):
+E = EllipticCurve(GF(211), [0, 7])
+G = E.gens()[0]
+n = G.order()
 
-    import hashlib
-    import base64
-    
-    # Langkah 1: Buat Kunci ECC
-    F = FiniteField(2^127 - 1)
-    E = EllipticCurve(F, [1, 1])
-    G = E.random_point()
-    
-    a_priv = randint(2, 10^5)
-    b_priv = randint(2, 10^5)
-    A = a_priv * G
-    B = b_priv * G
-    
-    # Langkah 2: ECDH
-    S_a = a_priv * B
-    S_b = b_priv * A
-    secret_x = S_a[0]
-    
-    key = hashlib.sha256(str(secret_x).encode()).digest()
-    
-    def xor_bytes(m_bytes, k_bytes):
-        return bytes([mb ^ kb for mb, kb in zip(m_bytes, k_bytes)])
+def proses_kriptografi(pesan_input):
+    a = randint(1, n - 1)
+    b = randint(1, n - 1)
+    A = a * G
+    B = b * G
+    K1 = a * B
+    K2 = b * A
+    k = ZZ(K1.xy()[0]) % 256
 
-    if langkah == 0:
-        pretty_print(html(f"<b>Alice publik:</b> {A}<br><b>Bob publik:</b> {B}"))
+    try:
+        # Validasi input
+        if not isinstance(pesan_input, str):
+            raise ValueError("Input harus berupa teks (string).")
 
-    elif langkah == 1:
-        pretty_print(html(f"<b>Shared Point:</b> {S_a}"))
-        pretty_print(html(f"<b>Kunci Rahasia (SHA-256 dari x):</b><br><code>{key.hex()}</code>"))
+        # Enkripsi dan Dekripsi
+        pesan_bytes = pesan_input.encode('utf-8')
+        cipher_bytes = bytes([(x + k) % 256 for x in pesan_bytes])
+        decrypted_bytes = bytes([(x - k) % 256 for x in cipher_bytes])
+        pesan_terdekripsi = decrypted_bytes.decode('utf-8', errors='replace')
+        pesan_terenkripsi = cipher_bytes.hex()
 
-    elif langkah == 2:
-        msg_bytes = pesan.encode()
-        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
-        enc_b64 = base64.b64encode(encrypted).decode()
-        pretty_print(html(f"<b>Pesan Terenkripsi (base64):</b><br><code>{enc_b64}</code>"))
+        html_out = f"""
+        <h3>🔐 Simulasi Kriptografi Hybrid (ECDH + Caesar Cipher)</h3>
+        <ul>
+          <li><b>Kunci privat Alice:</b> {a}</li>
+          <li><b>Kunci privat Bob:</b> {b}</li>
+          <li><b>Kunci bersama (mod 256):</b> {k}</li>
+        </ul>
+        <p><b>Pesan asli:</b> {pesan_input}</p>
+        <p><b>Pesan terenkripsi (hex):</b><br><code>{pesan_terenkripsi}</code></p>
+        <p><b>Pesan terdekripsi:</b> {pesan_terdekripsi}</p>
+        <p><b>Status:</b> {"✅ Berhasil!" if pesan_input == pesan_terdekripsi else "❌ Gagal! Pesan tidak cocok."}</p>
+        """
+        show(html(html_out))
+    except Exception as e:
+        show(html(f"<p style='color:red'><b>⚠️ Error saat enkripsi:</b> {e}</p>"))
 
-    elif langkah == 3:
-        msg_bytes = pesan.encode()
-        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
-        decrypted = xor_bytes(encrypted, key[:len(msg_bytes)])
-        pretty_print(html(f"<b>Pesan Terdekripsi oleh Bob:</b><br><code>{decrypted.decode()}</code>"))
+# Interaktif dengan input string literal (bukan ekspresi)
+@interact
+def _(pesan=input_box(default="<p>Ini rahasia kita berdua</b>. Salam hangat 💖💘💕💞😘 😍 🥺: أحبك بوب;  我爱你，鲍勃; ボブ、愛してる; \
+      Я люблю тебя, Боб; मैं तुमसे प्यार करता हूँ, बॉब .</p>", label="📩 Pesan Alice", type=str,rows=15),
+     kirim=checkbox(False, label="✅ Kirim Pesan?")):
+    if kirim:
+        proses_kriptografi(pesan)
 </textarea>
 </div>
 
