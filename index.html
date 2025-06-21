@@ -482,7 +482,75 @@ a = animate(v, figsize=[10,2], aspect_ratio=1, xmin=0.5,xmax=14, ymin=0, ymax=2.
 show(a)
 </script>
 </div>
-            
+
+<h2>🔐 Simulasi Kriptografi Hybrid: ECDH + "AES" (Hash XOR)</h2>
+<p>Simulasi ini menunjukkan pertukaran kunci ECDH dan enkripsi sederhana menggunakan <code>hash XOR</code> (bukan AES asli karena keterbatasan lingkungan).</p>
+
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+<script>
+    sagecell.makeSagecell({
+        inputLocation: "#sagemath-ecc",
+        template: sagecell.templates.interact,
+        evalButtonText: "🔁 Jalankan Simulasi",
+        linked: true
+    });
+</script>
+
+<div id="sagemath-ecc">
+<textarea>
+@interact
+def _(pesan=input_box("Halo Bob, ini pesan rahasia dari Alice", width=60),
+      langkah=selector(['1. Buat Kunci ECC',
+                        '2. Derivasi Kunci Rahasia',
+                        '3. Enkripsi (Simulasi XOR)',
+                        '4. Dekripsi (Simulasi XOR)'],
+                       label="Pilih Langkah:", buttons=True)):
+
+    import hashlib
+    import base64
+    
+    # Langkah 1: Buat Kunci ECC
+    F = FiniteField(2^127 - 1)
+    E = EllipticCurve(F, [1, 1])
+    G = E.random_point()
+    
+    a_priv = randint(2, 10^5)
+    b_priv = randint(2, 10^5)
+    A = a_priv * G
+    B = b_priv * G
+    
+    # Langkah 2: ECDH
+    S_a = a_priv * B
+    S_b = b_priv * A
+    secret_x = S_a[0]
+    
+    key = hashlib.sha256(str(secret_x).encode()).digest()
+    
+    def xor_bytes(m_bytes, k_bytes):
+        return bytes([mb ^ kb for mb, kb in zip(m_bytes, k_bytes)])
+
+    if langkah == 0:
+        pretty_print(html(f"<b>Alice publik:</b> {A}<br><b>Bob publik:</b> {B}"))
+
+    elif langkah == 1:
+        pretty_print(html(f"<b>Shared Point:</b> {S_a}"))
+        pretty_print(html(f"<b>Kunci Rahasia (SHA-256 dari x):</b><br><code>{key.hex()}</code>"))
+
+    elif langkah == 2:
+        msg_bytes = pesan.encode()
+        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
+        enc_b64 = base64.b64encode(encrypted).decode()
+        pretty_print(html(f"<b>Pesan Terenkripsi (base64):</b><br><code>{enc_b64}</code>"))
+
+    elif langkah == 3:
+        msg_bytes = pesan.encode()
+        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
+        decrypted = xor_bytes(encrypted, key[:len(msg_bytes)])
+        pretty_print(html(f"<b>Pesan Terdekripsi oleh Bob:</b><br><code>{decrypted.decode()}</code>"))
+</textarea>
+</div>
+
+
 <hr>        
 
 <h2>2. Tambahkan Konten Dinamis (Pilih: Teks \(\LaTeX\), MathLive atau SageMath!)</h2>
