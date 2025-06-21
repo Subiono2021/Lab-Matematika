@@ -1,351 +1,351 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <title>Editor Matematika Interaktif</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-    <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+    <meta charset="UTF-8" />
+    <title>Editor Matematika Interaktif</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
 
-    <script>
-    // Make the div with id 'Intent' a Sage cell
-    sagecell.makeSagecell({inputLocation:  '#Intent',
-                           template:       sagecell.templates.minimal,
-                           evalButtonText: 'Aktifkan'});
-    // Make *any* div with class 'compute' a Sage cell
-    sagecell.makeSagecell({inputLocation: 'div.compute',
-                           evalButtonText: 'Evaluasi'});
-    </script>
+    <script>
+    // Make the div with id 'Intent' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#Intent',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'Aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'Evaluasi'});
+    </script>
 
-    <script>
-    // Make the div with id 'matriks' a Sage cell
-    sagecell.makeSagecell({inputLocation:  '#matriks',
-                           template:       sagecell.templates.default,
-                           evalButtonText: 'jalankan'});
-    // Make *any* div with class 'compute' a Sage cell
-    sagecell.makeSagecell({inputLocation: 'div.compute',
-                           evalButtonText: 'Jalankan'});
-    </script>
+    <script>
+    // Make the div with id 'matriks' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#matriks',
+                           template:       sagecell.templates.default,
+                           evalButtonText: 'jalankan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'Jalankan'});
+    </script>
 
-    <script>
-    // Make the div with id 'lucu3d' a Sage cell
-    sagecell.makeSagecell({inputLocation:  '#lucu3d',
-                           template:       sagecell.templates.minimal,
-                           evalButtonText: 'aktifkan'});
-    // Make *any* div with class 'compute' a Sage cell
-    sagecell.makeSagecell({inputLocation: 'div.compute',
-                           evalButtonText: 'aktifkan'});
-    </script>
+    <script>
+    // Make the div with id 'lucu3d' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#lucu3d',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
 
-    <script>
-    // Make the div with id 'sikloida' a Sage cell
-    sagecell.makeSagecell({inputLocation:  '#sikloida',
-                           template:       sagecell.templates.minimal,
-                           evalButtonText: 'aktifkan'});
-    // Make *any* div with class 'compute' a Sage cell
-    sagecell.makeSagecell({inputLocation: 'div.compute',
-                           evalButtonText: 'aktifkan'});
-    </script>
+    <script>
+    // Make the div with id 'sikloida' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#sikloida',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
 
-    <script defer src="https://unpkg.com/mathlive"></script>
-    <style>
-        body { font-family: sans-serif; max-width: 960px; margin: auto; padding: 20px; }
-        .btn { padding: 8px 14px; margin: 5px 5px 10px 0; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .btn:hover { background: #0056b3; }
-        .btn-small { font-size: 12px; padding: 4px 8px; margin-top: 4px; }
-        .btn-delete { background: #dc3545; margin-left: 10px; }
-        .btn-delete:hover { background: #c82333; }
-        textarea { width: 100%; height: 120px; font-size: 16px; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 6px; white-space: pre-wrap; }
-        .preview { background: #f0f0f0; border: 1px dashed #999; padding: 10px; min-height: 40px; margin-top: 5px; }
-        .text-block, .mathlive-block, .sage-block { border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-bottom: 20px; background: #fefefe; position: relative; }
-        math-field { width: 100%; margin-top: 10px; background-color: white; color: black; border-radius: 6px; padding: 6px; font-size: 18px; }
-        #floatingMenu { position: fixed; top: 10px; left: 10px; z-index: 1000; }
-        #floatingMenu .btn { display: block; font-size: 13px; margin-bottom: 5px; }
-        .sage-block .sagecell_output { border-top: 1px solid #eee; margin-top: 10px; padding-top: 10px; }
-        .block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .block-header span { font-weight: bold; }
-        .docs-link { font-size: 14px; margin-left: 15px; color: #007bff; text-decoration: none; }
-        .docs-link:hover { text-decoration: underline; }
+    <script defer src="https://unpkg.com/mathlive"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 960px; margin: auto; padding: 20px; }
+        .btn { padding: 8px 14px; margin: 5px 5px 10px 0; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        .btn-small { font-size: 12px; padding: 4px 8px; margin-top: 4px; }
+        .btn-delete { background: #dc3545; margin-left: 10px; }
+        .btn-delete:hover { background: #c82333; }
+        textarea { width: 100%; height: 120px; font-size: 16px; margin: 5px 0; padding: 8px; border: 1px solid #ccc; border-radius: 6px; white-space: pre-wrap; }
+        .preview { background: #f0f0f0; border: 1px dashed #999; padding: 10px; min-height: 40px; margin-top: 5px; }
+        .text-block, .mathlive-block, .sage-block { border: 1px solid #ddd; padding: 10px; border-radius: 8px; margin-bottom: 20px; background: #fefefe; position: relative; }
+        math-field { width: 100%; margin-top: 10px; background-color: white; color: black; border-radius: 6px; padding: 6px; font-size: 18px; }
+        #floatingMenu { position: fixed; top: 10px; left: 10px; z-index: 1000; }
+        #floatingMenu .btn { display: block; font-size: 13px; margin-bottom: 5px; }
+        .sage-block .sagecell_output { border-top: 1px solid #eee; margin-top: 10px; padding-top: 10px; }
+        .block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .block-header span { font-weight: bold; }
+        .docs-link { font-size: 14px; margin-left: 15px; color: #007bff; text-decoration: none; }
+        .docs-link:hover { text-decoration: underline; }
 
-        /* Running Text */
-        .marquee {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            box-sizing: border-box;
-            border-bottom: 2px solid #444;
-            margin-bottom: 20px;
-            font-family: 'Georgia', serif;
-            font-size: 30px;
-        }
+        /* Running Text */
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            border-bottom: 2px solid #444;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+            font-size: 30px;
+        }
 
-        .marquee span {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 15s linear infinite;
-            font-weight: bold;
-            background: linear-gradient(to right, #007bff, #00c6ff);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+            font-weight: bold;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
 
-         h1 { text-align: center; margin-bottom: 30px; }
-        section { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        section:last-child { border-bottom: none; }
-        p { margin-bottom: 10px; }
-        ul { list-style-type: disc; margin-left: 20px; margin-bottom: 10px; }
-        li { margin-bottom: 5px; }
-        .highlight { background-color: #e6f7ff; padding: 15px; border-left: 5px solid #007bff; margin: 20px 0; border-radius: 5px; }
-        .btn { display: inline-block; padding: 8px 15px; margin-top: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease; }
-        .btn:hover { background-color: #218838; }
+         h1 { text-align: center; margin-bottom: 30px; }
+        section { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        section:last-child { border-bottom: none; }
+        p { margin-bottom: 10px; }
+        ul { list-style-type: disc; margin-left: 20px; margin-bottom: 10px; }
+        li { margin-bottom: 5px; }
+        .highlight { background-color: #e6f7ff; padding: 15px; border-left: 5px solid #007bff; margin: 20px 0; border-radius: 5px; }
+        .btn { display: inline-block; padding: 8px 15px; margin-top: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease; }
+        .btn:hover { background-color: #218838; }
 
-        /* Gaya untuk garis horizontal <hr> */
-        hr {
-            border: none; /* Hapus border default */
-            height: 5px; /* Atur tinggi untuk membuat garis tebal */
-            background-color: #ccc; /* Beri warna pada garis */
-            margin: 20px 0; /* Tambahkan margin atas dan bawah */
-        }
-    </style>
+        /* Gaya untuk garis horizontal <hr> */
+        hr {
+            border: none; /* Hapus border default */
+            height: 5px; /* Atur tinggi untuk membuat garis tebal */
+            background-color: #ccc; /* Beri warna pada garis */
+            margin: 20px 0; /* Tambahkan margin atas dan bawah */
+        }
+    </style>
 
 </head>
 <body>
 <div id="floatingMenu">
-    <button class="btn" onclick="addTextBlock()">➕ Teks LaTeX</button>
-    <button class="btn" onclick="addMathliveBlock()">➕ MathLive</button>
-    <button class="btn" onclick="addSageCell()">➕ SageMath</button>
-    <button class="btn" id="saveBtn">💾 Simpan Semua</button>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="loadSession(this)" />
-    <button class="btn" onclick="document.getElementById('importFile').click()">📂 Impor File</button>
-    <button class="btn" onclick="localStorage.clear(); alert('Data lokal dibersihkan!')">🧹 Bersihkan Data</button>
+    <button class="btn" onclick="addTextBlock()">➕ Teks LaTeX</button>
+    <button class="btn" onclick="addMathliveBlock()">➕ MathLive</button>
+    <button class="btn" onclick="addSageCell()">➕ SageMath</button>
+    <button class="btn" id="saveBtn">💾 Simpan Semua</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="loadSession(this)" />
+    <button class="btn" onclick="document.getElementById('importFile').click()">📂 Impor File</button>
+    <button class="btn" onclick="localStorage.clear(); alert('Data lokal dibersihkan!')">🧹 Bersihkan Data</button>
 </div>
 
 <div class="marquee"><span>📄 Editor LaTeX / Markdown Dinamis + 💻 SageMath Cell Interaktif + ✍️ MathLive Editor</span></div>
 
 <h2>Pengembangan Antarmuka Editor Matematika Dinamis Berbasis HTML</h2>
 
-    <div class="block">
-        <h2>Abstrak</h2>
-        <p align="justify">
-            Penggunaan teknologi web untuk pembelajaran matematika interaktif semakin relevan dalam era digital. 
-            Artikel ini membahas perancangan dan implementasi antarmuka berbasis HTML yang memungkinkan pengguna untuk 
-            menuliskan, merender, dan mengevaluasi ekspresi matematika secara dinamis. Sistem ini mengintegrasikan tiga 
-            komponen utama: <strong>\(\LaTeX\) editor</strong> dengan pratinjau langsung, <strong>MathLive</strong> sebagai 
-            editor ekspresi matematis berbasis <b>WYSIWYG</b>, serta <strong>SageMath Cell</strong> sebagai lingkungan komputasi 
-            simbolik. Semua komponen dirancang dalam satu dokumen HTML responsif, tata letak fleksibel, dan penambahan elemen 
-            secara dinamis. Hal ini tentunya sangat mendukung untuk proses pembelajaran matematika secara interaktif yang 
-            tidak hanya mengeksplorasi kemampuan <b>teoritis</b> saja, tetapi dapat mewujudkan menjadi <b>satu kesatuan</b> 
-            yang tak-terpisah: <b>teori</b>, <b>aplikasi (<i>real problem</i>)</b> dan <b>komputasi</b>. Tentunya, ini
-            adalah wujud nyata dari suatu <b>Laboratorium Matematika Interaktif Dinamis</b> gratis yang hanya membutuhkan
-            akses internet.
-        </p>
-        <div align="right">
-            <p><b>
-            قَالُوا۟ سُبْحَـٰنَكَ لَا عِلْمَ لَنَآ إِلَّا مَا عَلَّمْتَنَآ ۖ إِنَّكَ أَنتَ ٱلْعَلِيمُ ٱلْحَكِيمُ
-            </b>
-            <br>
-            Surat Al-Baqarah (2:32)
-            </p>
-        </div>
-        <hr>
-    </div>
+    <div class="block">
+        <h2>Abstrak</h2>
+        <p align="justify">
+            Penggunaan teknologi web untuk pembelajaran matematika interaktif semakin relevan dalam era digital. 
+            Artikel ini membahas perancangan dan implementasi antarmuka berbasis HTML yang memungkinkan pengguna untuk 
+            menuliskan, merender, dan mengevaluasi ekspresi matematika secara dinamis. Sistem ini mengintegrasikan tiga 
+            komponen utama: <strong>\(\LaTeX\) editor</strong> dengan pratinjau langsung, <strong>MathLive</strong> sebagai 
+            editor ekspresi matematis berbasis <b>WYSIWYG</b>, serta <strong>SageMath Cell</strong> sebagai lingkungan komputasi 
+            simbolik. Semua komponen dirancang dalam satu dokumen HTML responsif, tata letak fleksibel, dan penambahan elemen 
+            secara dinamis. Hal ini tentunya sangat mendukung untuk proses pembelajaran matematika secara interaktif yang 
+            tidak hanya mengeksplorasi kemampuan <b>teoritis</b> saja, tetapi dapat mewujudkan menjadi <b>satu kesatuan</b> 
+            yang tak-terpisah: <b>teori</b>, <b>aplikasi (<i>real problem</i>)</b> dan <b>komputasi</b>. Tentunya, ini
+            adalah wujud nyata dari suatu <b>Laboratorium Matematika Interaktif Dinamis</b> gratis yang hanya membutuhkan
+            akses internet.
+        </p>
+        <div align="right">
+            <p><b>
+            قَالُوا۟ سُبْحَـٰنَكَ لَا عِلْمَ لَنَآ إِلَّا مَا عَلَّمْتَنَآ ۖ إِنَّكَ أَنتَ ٱلْعَلِيمُ ٱلْحَكِيمُ
+            </b>
+            <br>
+            Surat Al-Baqarah (2:32)
+            </p>
+        </div>
+        <hr>
+    </div>
 
-     <div class="container">
-        <h2>Panduan Penggunaan: Laboratorium Matematika Interaktif Dinamis Anda</h2>
+     <div class="container">
+        <h2>Panduan Penggunaan: Laboratorium Matematika Interaktif Dinamis Anda</h2>
 
-        <hr> <section>
-            <h2>Selamat Datang!</h2>
-            <p align="justify">
-              Editor ini adalah Laboratorium Matematika interaktif yang dirancang untuk membantu Anda belajar, bereksperimen, 
-              dan memecahkan masalah matematika dengan cara yang dinamis. Anda akan menemukan berbagai alat yang terintegrasi 
-              untuk menangani notasi, input, dan komputasi matematika.
-            </p>
-            <p align="justify">
-              Semua blok yang Anda tambahkan dan konten di dalamnya akan disimpan secara otomatis di browser Anda, sehingga 
-              Anda bisa melanjutkan pekerjaan Anda bahkan setelah menutup atau me-refresh halaman. Anda juga dapat menyimpan 
-              seluruh sesi kerja ke file atau memuatnya kembali nanti.
-            </p>
-        </section>
+        <hr> <section>
+            <h2>Selamat Datang!</h2>
+            <p align="justify">
+              Editor ini adalah Laboratorium Matematika interaktif yang dirancang untuk membantu Anda belajar, bereksperimen, 
+              dan memecahkan masalah matematika dengan cara yang dinamis. Anda akan menemukan berbagai alat yang terintegrasi 
+              untuk menangani notasi, input, dan komputasi matematika.
+            </p>
+            <p align="justify">
+              Semua blok yang Anda tambahkan dan konten di dalamnya akan disimpan secara otomatis di browser Anda, sehingga 
+              Anda bisa melanjutkan pekerjaan Anda bahkan setelah menutup atau me-refresh halaman. Anda juga dapat menyimpan 
+              seluruh sesi kerja ke file atau memuatnya kembali nanti.
+            </p>
+        </section>
 
-        <hr> <section>
-            <h2>Menu Utama: Membuat Blok Baru</h2>
-            <p>Di pojok kiri atas layar, Anda akan melihat menu mengambang yang berisi tombol-tombol untuk menambahkan jenis blok yang berbeda ke area kerja utama Anda:</p>
-            <ul align="justify">
-                <li>
-                  <strong>➕ Teks \(\LaTeX\)</strong>: Klik ini untuk menambahkan blok di mana Anda dapat menulis teks 
-                  biasa dan notasi matematika menggunakan bahasa LaTeX. Ini ideal untuk membuat catatan, soal, atau 
-                  penjelasan yang terstruktur dan terlihat profesional.
-                </li>
-                <li>
-                  <strong>➕ MathLive</strong>: Tombol ini menambahkan blok dengan editor matematika visual. Anda bisa 
-                  memasukkan rumus dan ekspresi matematika dengan mudah, seperti mengetik di editor persamaan, tanpa 
-                  perlu tahu sintaks \(\LaTeX\).
-                </li>
-                <li>
-                  <strong>➕ SageMath</strong>: Ini adalah blok paling canggih untuk melakukan perhitungan matematika. 
-                  Anda dapat menulis dan menjalankan kode program menggunakan SageMath (berbasis Python) untuk memecahkan 
-                  masalah aljabar, kalkulus, statistik, dan banyak lagi. Perhitungan ini dilakukan di "cloud" 
-                  (server internet), jadi Anda tidak perlu menginstal perangkat lunak apa pun di komputer Anda.
-                </li>
-                <li>
-                  <strong>💾 Simpan Semua</strong>: Menyimpan seluruh sesi kerja Anda (semua blok dan isinya) ke sebuah 
-                  file di komputer Anda (.json). Ini berguna jika Anda ingin memindahkan pekerjaan Anda ke komputer lain 
-                  atau membuat cadangan.
-                </li>
-                <li>
-                  <strong>📂 Impor File</strong>: Memuat sesi kerja yang sebelumnya Anda simpan dari file .json.
-                </li>
-                <li>
-                  <strong>🧹 Bersihkan Data</strong>: Menghapus semua data sesi yang tersimpan di browser Anda. 
-                  Gunakan ini jika Anda ingin memulai dari awal atau menghapus pekerjaan lama.
-                </li>
-            </ul>
-        </section>
+        <hr> <section>
+            <h2>Menu Utama: Membuat Blok Baru</h2>
+            <p>Di pojok kiri atas layar, Anda akan melihat menu mengambang yang berisi tombol-tombol untuk menambahkan jenis blok yang berbeda ke area kerja utama Anda:</p>
+            <ul align="justify">
+                <li>
+                  <strong>➕ Teks \(\LaTeX\)</strong>: Klik ini untuk menambahkan blok di mana Anda dapat menulis teks 
+                  biasa dan notasi matematika menggunakan bahasa LaTeX. Ini ideal untuk membuat catatan, soal, atau 
+                  penjelasan yang terstruktur dan terlihat profesional.
+                </li>
+                <li>
+                  <strong>➕ MathLive</strong>: Tombol ini menambahkan blok dengan editor matematika visual. Anda bisa 
+                  memasukkan rumus dan ekspresi matematika dengan mudah, seperti mengetik di editor persamaan, tanpa 
+                  perlu tahu sintaks \(\LaTeX\).
+                </li>
+                <li>
+                  <strong>➕ SageMath</strong>: Ini adalah blok paling canggih untuk melakukan perhitungan matematika. 
+                  Anda dapat menulis dan menjalankan kode program menggunakan SageMath (berbasis Python) untuk memecahkan 
+                  masalah aljabar, kalkulus, statistik, dan banyak lagi. Perhitungan ini dilakukan di "cloud" 
+                  (server internet), jadi Anda tidak perlu menginstal perangkat lunak apa pun di komputer Anda.
+                </li>
+                <li>
+                  <strong>💾 Simpan Semua</strong>: Menyimpan seluruh sesi kerja Anda (semua blok dan isinya) ke sebuah 
+                  file di komputer Anda (.json). Ini berguna jika Anda ingin memindahkan pekerjaan Anda ke komputer lain 
+                  atau membuat cadangan.
+                </li>
+                <li>
+                  <strong>📂 Impor File</strong>: Memuat sesi kerja yang sebelumnya Anda simpan dari file .json.
+                </li>
+                <li>
+                  <strong>🧹 Bersihkan Data</strong>: Menghapus semua data sesi yang tersimpan di browser Anda. 
+                  Gunakan ini jika Anda ingin memulai dari awal atau menghapus pekerjaan lama.
+                </li>
+            </ul>
+        </section>
 
-        <hr>
+        <hr>
 
-        <section>
-            <h2>Mengenal Berbagai Jenis Blok</h2>
-            <p>Setiap blok memiliki fungsi unik untuk pengalaman matematika Anda:</p>
+        <section>
+            <h2>Mengenal Berbagai Jenis Blok</h2>
+            <p>Setiap blok memiliki fungsi unik untuk pengalaman matematika Anda:</p>
 
-            <h3>1. Blok Teks \(\LaTeX\)</h3>
-            <p align="justify">
-              Blok ini adalah kanvas Anda untuk menulis dan mempresentasikan matematika secara formal. 
-              Anda akan melihat dua mode utama:</p>
-            <ul align="justify">
-                <li><strong>Mode Edit:</strong> Ini adalah area tempat Anda mengetik teks dan kode \(\LaTeX\). Misalnya, 
-                  Anda bisa mengetik <code>$\int \sin(x) dx = -\cos(x) + C$</code>.</li>
-                <li><strong>Mode Pratinjau:</strong> Setelah Anda mengetik, klik tombol "↔️ Lihat Pratinjau" 
-                  untuk melihat bagaimana notasi \(\LaTeX\) Anda dirender menjadi persamaan yang indah dan mudah dibaca oleh MathJax, seperti di buku teks. Anda bisa beralih kembali ke mode edit dengan tombol yang sama ("↔️ Edit Teks").</li>
-                <li><strong>Tombol Hapus (🗑️):</strong> Menghapus blok ini dari halaman.</li>
-            </ul>
+            <h3>1. Blok Teks \(\LaTeX\)</h3>
+            <p align="justify">
+              Blok ini adalah kanvas Anda untuk menulis dan mempresentasikan matematika secara formal. 
+              Anda akan melihat dua mode utama:</p>
+            <ul align="justify">
+                <li><strong>Mode Edit:</strong> Ini adalah area tempat Anda mengetik teks dan kode \(\LaTeX\). Misalnya, 
+                  Anda bisa mengetik <code>$\int \sin(x) dx = -\cos(x) + C$</code>.</li>
+                <li><strong>Mode Pratinjau:</strong> Setelah Anda mengetik, klik tombol "↔️ Lihat Pratinjau" 
+                  untuk melihat bagaimana notasi \(\LaTeX\) Anda dirender menjadi persamaan yang indah dan mudah dibaca oleh MathJax, seperti di buku teks. Anda bisa beralih kembali ke mode edit dengan tombol yang sama ("↔️ Edit Teks").</li>
+                <li><strong>Tombol Hapus (🗑️):</strong> Menghapus blok ini dari halaman.</li>
+            </ul>
 
-            <h3>2. Blok MathLive</h3>
-            <p align="justify">
-              Blok ini dirancang untuk kemudahan dan kecepatan. Jika Anda tidak terbiasa dengan \(\LaTeX\), 
-              ini adalah titik awal yang sempurna:</p>
-            <ul align="justify">
-                <li>Anda dapat mengetikkan ekspresi matematika secara langsung, dan MathLive akan secara otomatis 
-                  memformatnya dengan benar. Contoh: Ketik <code>sqrt(x^2 + y^2)</code> dan MathLive akan mengubahnya 
-                  menjadi \(\sqrt{x^2 + y^2}\).</li>
-                <li>Ini sangat intuitif dan memberikan umpan balik visual langsung saat Anda membangun persamaan.</li>
-                <li><strong>Tombol Hapus (🗑️):</strong> Menghapus blok ini.</li>
-            </ul>
+            <h3>2. Blok MathLive</h3>
+            <p align="justify">
+              Blok ini dirancang untuk kemudahan dan kecepatan. Jika Anda tidak terbiasa dengan \(\LaTeX\), 
+              ini adalah titik awal yang sempurna:</p>
+            <ul align="justify">
+                <li>Anda dapat mengetikkan ekspresi matematika secara langsung, dan MathLive akan secara otomatis 
+                  memformatnya dengan benar. Contoh: Ketik <code>sqrt(x^2 + y^2)</code> dan MathLive akan mengubahnya 
+                  menjadi \(\sqrt{x^2 + y^2}\).</li>
+                <li>Ini sangat intuitif dan memberikan umpan balik visual langsung saat Anda membangun persamaan.</li>
+                <li><strong>Tombol Hapus (🗑️):</strong> Menghapus blok ini.</li>
+            </ul>
 
-            <h3>3. Blok SageMath</h3>
-            <p align="justify">
-              Ini adalah pusat komputasi Anda. Di sini, Anda dapat menggunakan kekuatan pemrograman dan matematika:
-            </p>
-            <ul align="justify">
-                <li>
-                  Anda akan melihat area untuk mengetikkan kode. Misalnya, Anda bisa mengetik <code>%display latex</code> 
-                  (untuk menampilkan output dalam format \(\LaTeX\)) lalu <code>integrate(sin(x), x)</code> untuk menghitung 
-                  integral sinus x.
-                </li>
-                <li>
-                  Klik tombol <strong>"Jalankan"</strong> (yang disediakan oleh SageMath) untuk mengeksekusi kode 
-                  Anda dan melihat hasilnya di bawahnya.
-                </li>
-                <li>
-                  <strong>Tombol "📚 Dokumentasi SageMath":</strong> Tautan langsung ke dokumentasi resmi SageMath 
-                  untuk membantu Anda belajar lebih banyak tentang fungsi-fungsi yang tersedia.
-                </li>
-                <li>
-                  <strong>Tombol "➕ Blok Kode \(\LaTeX\) Baru":</strong> Tombol ini akan menambahkan blok teks \(\LaTeX\) baru 
-                  (dengan judul "Blok Kode \(\LaTeX\)") ke halaman Anda. Karena alasan keamanan teknis (yang melibatkan 
-                  bagaimana browser berinterinteraksi dengan layanan cloud seperti SageMath), kode dari editor SageMath 
-                  tidak dapat langsung disalin secara otomatis. Oleh karena itu, setelah Anda membuat blok baru ini, 
-                  silakan <b>sorot dan salin (Ctrl+C atau Cmd+C) kode dari editor SageMath Anda, lalu tempel 
-                  (Ctrl+V atau Cmd+V) di blok Kode LaTeX yang baru</b>. Ini adalah cara manual yang sangat efektif untuk 
-                  memindahkan kode Anda ke blok LaTeX untuk dokumentasi atau presentasi.
-                </li>
-                <li><strong>Tombol Hapus (🗑️):</strong> Menghapus blok ini.</li>
-            </ul>
-            <p align="justify" class="highlight">
-              Penggunaan SageMath ini adalah contoh nyata bagaimana Anda memanfaatkan <strong>cloud computing</strong>. 
-              Perhitungan yang kompleks dilakukan di server jauh (di internet), bukan di komputer Anda, sehingga Anda bisa 
-              menggunakan alat canggih ini tanpa perlu instalasi berat atau komputer berkemampuan tinggi. Cukup dengan 
-              koneksi internet!
-            </p>
-        </section>
+            <h3>3. Blok SageMath</h3>
+            <p align="justify">
+              Ini adalah pusat komputasi Anda. Di sini, Anda dapat menggunakan kekuatan pemrograman dan matematika:
+            </p>
+            <ul align="justify">
+                <li>
+                  Anda akan melihat area untuk mengetikkan kode. Misalnya, Anda bisa mengetik <code>%display latex</code> 
+                  (untuk menampilkan output dalam format \(\LaTeX\)) lalu <code>integrate(sin(x), x)</code> untuk menghitung 
+                  integral sinus x.
+                </li>
+                <li>
+                  Klik tombol <strong>"Jalankan"</strong> (yang disediakan oleh SageMath) untuk mengeksekusi kode 
+                  Anda dan melihat hasilnya di bawahnya.
+                </li>
+                <li>
+                  <strong>Tombol "📚 Dokumentasi SageMath":</strong> Tautan langsung ke dokumentasi resmi SageMath 
+                  untuk membantu Anda belajar lebih banyak tentang fungsi-fungsi yang tersedia.
+                </li>
+                <li>
+                  <strong>Tombol "➕ Blok Kode \(\LaTeX\) Baru":</strong> Tombol ini akan menambahkan blok teks \(\LaTeX\) baru 
+                  (dengan judul "Blok Kode \(\LaTeX\)") ke halaman Anda. Karena alasan keamanan teknis (yang melibatkan 
+                  bagaimana browser berinterinteraksi dengan layanan cloud seperti SageMath), kode dari editor SageMath 
+                  tidak dapat langsung disalin secara otomatis. Oleh karena itu, setelah Anda membuat blok baru ini, 
+                  silakan <b>sorot dan salin (Ctrl+C atau Cmd+C) kode dari editor SageMath Anda, lalu tempel 
+                  (Ctrl+V atau Cmd+V) di blok Kode LaTeX yang baru</b>. Ini adalah cara manual yang sangat efektif untuk 
+                  memindahkan kode Anda ke blok LaTeX untuk dokumentasi atau presentasi.
+                </li>
+                <li><strong>Tombol Hapus (🗑️):</strong> Menghapus blok ini.</li>
+            </ul>
+            <p align="justify" class="highlight">
+              Penggunaan SageMath ini adalah contoh nyata bagaimana Anda memanfaatkan <strong>cloud computing</strong>. 
+              Perhitungan yang kompleks dilakukan di server jauh (di internet), bukan di komputer Anda, sehingga Anda bisa 
+              menggunakan alat canggih ini tanpa perlu instalasi berat atau komputer berkemampuan tinggi. Cukup dengan 
+              koneksi internet!
+            </p>
+        </section>
 
-        <hr>
+        <hr>
 
-        <section>
-            <h2>Bagaimana Semua Ini Saling Terkait dalam Pembelajaran?</h2>
-            <p align="justify">
-              Laboratorium ini dirancang untuk mendukung cara belajar yang modern:
-            </p>
-            <ul align="justify">
-                <li>
-                  <strong>Belajar Formal (\(\LaTeX\)):</strong> Biasakan diri Anda dengan penulisan matematika standar.
-                </li>
-                <li>
-                  <strong>Eksplorasi Cepat (MathLive):</strong> Coba berbagai rumus tanpa hambatan sintaks, fokus pada ide.
-                </li>
-                <li>
-                  <strong>Komputasi dan Verifikasi (SageMath):</strong> Jalankan perhitungan kompleks, verifikasi 
-                  jawaban Anda, atau lihat bagaimana fungsi berperilaku. Ini adalah jembatan ke dunia <strong>AI</strong> 
-                  dan <strong>data science</strong>, di mana kemampuan untuk memprogram dan menganalisis secara komputasi 
-                  sangatlah penting.
-                </li>
-                <li>
-                  <strong>Fleksibilitas:</strong> Anda dapat menggabungkan blok-blok ini. Misalnya, Anda bisa menghitung 
-                  sesuatu di SageMath, lalu menyalin kode atau hasilnya ke blok Teks \(\LaTeX\) untuk dokumentasi atau ke blok 
-                  MathLive untuk memodifikasi persamaan secara visual.
-                </li>
-                <li>
-                  <strong>Pembelajaran Berbasis Proyek:</strong> Anda bisa menggunakan editor ini untuk mengerjakan proyek 
-                  matematika kecil, mendokumentasikan langkah-langkah, dan melakukan perhitungan, semuanya dalam satu 
-                  lingkungan.
-                </li>
-            </ul>
-            <p align="justify">
-              Dengan alat ini, Anda tidak hanya belajar matematika, tetapi juga mengembangkan keterampilan komputasi 
-              yang berharga untuk masa depan di era digital dan AI. Sehingga memahami matematika secara utuh "<b>teori, 
-              aplikasi (real problem) dan komputasi menjadi satu kesatuan yang tak-terpisah</b>."
-            </p>
-        </section>
+        <section>
+            <h2>Bagaimana Semua Ini Saling Terkait dalam Pembelajaran?</h2>
+            <p align="justify">
+              Laboratorium ini dirancang untuk mendukung cara belajar yang modern:
+            </p>
+            <ul align="justify">
+                <li>
+                  <strong>Belajar Formal (\(\LaTeX\)):</strong> Biasakan diri Anda dengan penulisan matematika standar.
+                </li>
+                <li>
+                  <strong>Eksplorasi Cepat (MathLive):</strong> Coba berbagai rumus tanpa hambatan sintaks, fokus pada ide.
+                </li>
+                <li>
+                  <strong>Komputasi dan Verifikasi (SageMath):</strong> Jalankan perhitungan kompleks, verifikasi 
+                  jawaban Anda, atau lihat bagaimana fungsi berperilaku. Ini adalah jembatan ke dunia <strong>AI</strong> 
+                  dan <strong>data science</strong>, di mana kemampuan untuk memprogram dan menganalisis secara komputasi 
+                  sangatlah penting.
+                </li>
+                <li>
+                  <strong>Fleksibilitas:</strong> Anda dapat menggabungkan blok-blok ini. Misalnya, Anda bisa menghitung 
+                  sesuatu di SageMath, lalu menyalin kode atau hasilnya ke blok Teks \(\LaTeX\) untuk dokumentasi atau ke blok 
+                  MathLive untuk memodifikasi persamaan secara visual.
+                </li>
+                <li>
+                  <strong>Pembelajaran Berbasis Proyek:</strong> Anda bisa menggunakan editor ini untuk mengerjakan proyek 
+                  matematika kecil, mendokumentasikan langkah-langkah, dan melakukan perhitungan, semuanya dalam satu 
+                  lingkungan.
+                </li>
+            </ul>
+            <p align="justify">
+              Dengan alat ini, Anda tidak hanya belajar matematika, tetapi juga mengembangkan keterampilan komputasi 
+              yang berharga untuk masa depan di era digital dan AI. Sehingga memahami matematika secara utuh "<b>teori, 
+              aplikasi (real problem) dan komputasi menjadi satu kesatuan yang tak-terpisah</b>."
+            </p>
+        </section>
 
-        <section>
-            <h2>1. Contoh SageMath Cell</h2>
-    <p align="justify">
-    Contoh berikut adalah hasil dari kode dalam SageMath suatu kalkulator menghitung integral tertentu dan 
-    juga menampilkan grafiknya. Untuk mengeksekusi tekan tombol <button>Aktifkan</button>.Anda bisa mengubah isian 
-    <code>f</code> dan batas-batas integral <code>a</code> dan <code>b</code> sesuai yang anda inginkan. Tekan 
-    tombol Update untuk menampilkan hasil. 
-    </p>
-        <div id="Intent">
-            <script type="text/x-sage">
+        <section>
+            <h2>1. Contoh SageMath Cell</h2>
+    <p align="justify">
+    Contoh berikut adalah hasil dari kode dalam SageMath suatu kalkulator menghitung integral tertentu dan 
+    juga menampilkan grafiknya. Untuk mengeksekusi tekan tombol <button>Aktifkan</button>.Anda bisa mengubah isian 
+    <code>f</code> dan batas-batas integral <code>a</code> dan <code>b</code> sesuai yang anda inginkan. Tekan 
+    tombol Update untuk menampilkan hasil. 
+    </p>
+        <div id="Intent">
+            <script type="text/x-sage">
 x=var('x')
 @interact
 def _(f = -2*sin(x)+x,a=-3,b=5,auto_update=False):
-    q=integrate(f,x).canonicalize_radical()
-    p=integrate(f,x,a,b)
-    r=plot([f],x,a,b,gridlines='minor',\
-            legend_label='automatic',fill = true)
-    r.show(figsize=4)
-    pretty_print(html("Nilai integral:\
-    $$\\int\\limits_{%s}^{%s}\\left(%s\\right)\\,dx=\
-    \\left.%s\\right|_{%s}^{%s}=%s\
-    \\approx %s$$"%(latex(a),latex(b),latex(f),latex(q),\
-                    latex(a),latex(b),latex(p),latex(n(p)))))
-            </script>
-        </div>
+    q=integrate(f,x).canonicalize_radical()
+    p=integrate(f,x,a,b)
+    r=plot([f],x,a,b,gridlines='minor',\
+            legend_label='automatic',fill = true)
+    r.show(figsize=4)
+    pretty_print(html("Nilai integral:\
+    $$\\int\\limits_{%s}^{%s}\\left(%s\\right)\\,dx=\
+    \\left.%s\\right|_{%s}^{%s}=%s\
+    \\approx %s$$"%(latex(a),latex(b),latex(f),latex(q),\
+                    latex(a),latex(b),latex(p),latex(n(p)))))
+            </script>
+        </div>
 <hr>
-    <p align="justify">
-     Selanjutnya kita berikan contoh membuat matriks random ukuran \(5\times 5\) yang elemen-elemennya di 
-     \(\mathbb{Z}\), dan dihitung \(\det(A)\) serta polinomial kharakteristik dari \(A\).
-    </p>
+    <p align="justify">
+     Selanjutnya kita berikan contoh membuat matriks random ukuran \(5\times 5\) yang elemen-elemennya di 
+     \(\mathbb{Z}\), dan dihitung \(\det(A)\) serta polinomial kharakteristik dari \(A\).
+    </p>
 
 <div id="matriks">
 <script type="text/x-sage">
@@ -359,10 +359,10 @@ display(html(r"$\det(A) = %s"%(latex(d))))
 </script>
 </div>
 <p align="justify">
-Gambar berikut ini menampilkan animasi wajah kartun 3D yang terdiri dari bola kuning sebagai kepala, 
-kerucut merah sebagai hidung atau topi, bola putih dan hitam sebagai mata, dan bola 
-kuning kecil sebagai mulut. Objek wajah ini digabungkan dengan plot <b>3D</b> dari fungsi 
-matematika <code>f(x, y) = exp(x/5)*cos(y)</code>, yang ditampilkan dengan gradasi warna merah dan kuning. 
+Gambar berikut ini menampilkan animasi wajah kartun 3D yang terdiri dari bola kuning sebagai kepala, 
+kerucut merah sebagai hidung atau topi, bola putih dan hitam sebagai mata, dan bola 
+kuning kecil sebagai mulut. Objek wajah ini digabungkan dengan plot <b>3D</b> dari fungsi 
+matematika <code>f(x, y) = exp(x/5)*cos(y)</code>, yang ditampilkan dengan gradasi warna merah dan kuning. 
 Seluruh adegan <b>3D</b> ini ditampilkan tanpa bingkai. Klik tombol <button>Aktifkan</button>!
 </p>
 <div id="lucu3d">
@@ -384,17 +384,17 @@ S += sphere((.5, 0, -.2), size=.1, color='yellow')
 # Fungsi permukaan
 def f(x, y): return math.exp(x/5)*math.cos(y)
 P = plot3d(f, (-5, 5), (-5, 5), adaptive=True,
-           color=['red','yellow'], max_depth=10)
+           color=['red','yellow'], max_depth=10)
 
 # Gabungkan objek dasar
 combined_object = P.scale(.2) + S.translate(1, 0, 0)
 
 # Animasi: rotasi dan naik-turun
 frames = []
-for angle in srange(0, 2*pi, pi/20):  # lebih banyak frame untuk animasi halus
-    z_shift = 2 * math.sin(8 * angle)  # naik turun seperti gelombang
-    rotated = combined_object.rotateZ(angle).translate(0, 0, z_shift)
-    frames.append(rotated)
+for angle in srange(0, 2*pi, pi/20):  # lebih banyak frame untuk animasi halus
+    z_shift = 2 * math.sin(8 * angle)  # naik turun seperti gelombang
+    rotated = combined_object.rotateZ(angle).translate(0, 0, z_shift)
+    frames.append(rotated)
 
 # Tampilkan animasi
 animation = animate(frames, aspect_ratio=[1,1,1], frame=False, figsize=[9,9])
@@ -407,10 +407,10 @@ animation.show()
 <h3>1. Definisi Sikloida</h3>
 
 <p align="justify">
-Kurva <strong>sikloida</strong> adalah jejak lintasan yang dilalui oleh sebuah 
-<strong>titik tetap pada keliling sebuah lingkaran</strong> yang 
-<strong>menggelinding tanpa slip</strong> (tanpa selip) di sepanjang garis lurus datar. 
-Jika lingkaran menggelinding ke kanan di atas sumbu-x, maka lintasan titik tersebut membentuk 
+Kurva <strong>sikloida</strong> adalah jejak lintasan yang dilalui oleh sebuah 
+<strong>titik tetap pada keliling sebuah lingkaran</strong> yang 
+<strong>menggelinding tanpa slip</strong> (tanpa selip) di sepanjang garis lurus datar. 
+Jika lingkaran menggelinding ke kanan di atas sumbu-x, maka lintasan titik tersebut membentuk 
 kurva parametris:
 </p>
 
@@ -419,7 +419,7 @@ x(t) = t - \sin(t), \quad y(t) = 1 - \cos(t)
 $$
 
 <p align="justify">
-di mana \( t \) merepresentasikan sudut rotasi lingkaran (dalam radian) saat menggelinding, 
+di mana \( t \) merepresentasikan sudut rotasi lingkaran (dalam radian) saat menggelinding, 
 dan jari-jari lingkaran dianggap \( r = 1 \) (dapat digeneralisasi).
 </p>
 
@@ -433,8 +433,8 @@ dan jari-jari lingkaran dianggap \( r = 1 \) (dapat digeneralisasi).
 </code></pre>
 
 <p align="justify">
-Bagian ini menggambarkan <strong>jejak sikloida</strong> dari \( t = 0 \) hingga \( t = s \), 
-seiring waktu (atau sudut rotasi) \( s \) bertambah. Ini adalah lintasan <strong>historis</strong> 
+Bagian ini menggambarkan <strong>jejak sikloida</strong> dari \( t = 0 \) hingga \( t = s \), 
+seiring waktu (atau sudut rotasi) \( s \) bertambah. Ini adalah lintasan <strong>historis</strong> 
 dari titik yang menempel di lingkaran.
 </p>
 
@@ -446,8 +446,8 @@ dari titik yang menempel di lingkaran.
 </code></pre>
 
 <p align="justify">
-Lingkaran digambarkan dengan pusat di titik \( (s, 1) \), artinya lingkaran bergulir ke kanan sejauh \( s \) 
-sepanjang sumbu-x dan tetap berada di atas garis \( y = 1 \) (karena jari-jarinya 1). 
+Lingkaran digambarkan dengan pusat di titik \( (s, 1) \), artinya lingkaran bergulir ke kanan sejauh \( s \) 
+sepanjang sumbu-x dan tetap berada di atas garis \( y = 1 \) (karena jari-jarinya 1). 
 Ini mencerminkan <strong>gerak translasi</strong> dari pusat lingkaran.
 </p>
 
@@ -459,7 +459,7 @@ Ini mencerminkan <strong>gerak translasi</strong> dari pusat lingkaran.
 </code></pre>
 
 <p align="justify">
-Titik ini adalah posisi <strong>aktual</strong> dari titik yang berada di tepi lingkaran—mengikuti persamaan sikloida. 
+Titik ini adalah posisi <strong>aktual</strong> dari titik yang berada di tepi lingkaran—mengikuti persamaan sikloida. 
 Ini adalah titik yang melacak jalur sikloida seiring waktu. Silahkan tekan tombol <button>Aktifkan</button>!
 </p>
 
@@ -471,14 +471,14 @@ a = 0.2
 v = []
 t = var("t")
 for s in srange(0.01, 4.0*pi, a):
-    sikloida = parametric_plot((t-sin(t),1-cos(t)), (t, 0, s),thickness=3)
-    t_sikloida = (s-sin(s),1-cos(s))
-    lingkaran = circle((s,1),1,thickness=2,rgbcolor='green')
-    lingkaran1 = circle((s,1),0.5,thickness=4,fill=True,edgecolor='red')
-    titik = point(t_sikloida, pointsize=90, rgbcolor="brown")
-    garis = line([(s, 1),t_sikloida], thickness=4,color="red")
-    v.append(sikloida + lingkaran + lingkaran1 + titik + garis)
-a = animate(v, figsize=[10,2], aspect_ratio=1, xmin=0.5,xmax=14, ymin=0, ymax=2.2)    
+    sikloida = parametric_plot((t-sin(t),1-cos(t)), (t, 0, s),thickness=3)
+    t_sikloida = (s-sin(s),1-cos(s))
+    lingkaran = circle((s,1),1,thickness=2,rgbcolor='green')
+    lingkaran1 = circle((s,1),0.5,thickness=4,fill=True,edgecolor='red')
+    titik = point(t_sikloida, pointsize=90, rgbcolor="brown")
+    garis = line([(s, 1),t_sikloida], thickness=4,color="red")
+    v.append(sikloida + lingkaran + lingkaran1 + titik + garis)
+a = animate(v, figsize=[10,2], aspect_ratio=1, xmin=0.5,xmax=14, ymin=0, ymax=2.2)    
 show(a)
 </script>
 </div>
@@ -488,374 +488,404 @@ show(a)
 
 <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
 <script>
-    sagecell.makeSagecell({
-        inputLocation: "#sagemath-ecc",
-        template: sagecell.templates.interact,
-        evalButtonText: "🔁 Jalankan Simulasi",
-        linked: true
-    });
+    sagecell.makeSagecell({
+        inputLocation: "#sagemath-ecc",
+        template: sagecell.templates.interact,
+        evalButtonText: "🔁 Jalankan Simulasi",
+        // Tambahkan baris ini untuk opsi bahasa
+        languages: ['sage', 'python'],
+        // Anda juga bisa mengatur bahasa default
+        defaultLanguage: 'python',
+        linked: true
+    });
 </script>
 
 <div id="sagemath-ecc">
 <textarea>
 @interact
 def _(pesan=input_box("Halo Bob, ini pesan rahasia dari Alice", width=60),
-      langkah=selector(['1. Buat Kunci ECC',
-                        '2. Derivasi Kunci Rahasia',
-                        '3. Enkripsi (Simulasi XOR)',
-                        '4. Dekripsi (Simulasi XOR)'],
-                       label="Pilih Langkah:", buttons=True)):
+      langkah=selector(['1. Buat Kunci ECC',
+                        '2. Derivasi Kunci Rahasia',
+                        '3. Enkripsi (Simulasi XOR)',
+                        '4. Dekripsi (Simulasi XOR)'],
+                       label="Pilih Langkah:", buttons=True)):
 
-    import hashlib
-    import base64
-    
-    # Langkah 1: Buat Kunci ECC
-    F = FiniteField(2^127 - 1)
-    E = EllipticCurve(F, [1, 1])
-    G = E.random_point()
-    
-    a_priv = randint(2, 10^5)
-    b_priv = randint(2, 10^5)
-    A = a_priv * G
-    B = b_priv * G
-    
-    # Langkah 2: ECDH
-    S_a = a_priv * B
-    S_b = b_priv * A
-    secret_x = S_a[0]
-    
-    key = hashlib.sha256(str(secret_x).encode()).digest()
-    
-    def xor_bytes(m_bytes, k_bytes):
-        return bytes([mb ^ kb for mb, kb in zip(m_bytes, k_bytes)])
+    import hashlib
+    import base64
+    
+    # Langkah 1: Buat Kunci ECC
+    F = FiniteField(2^127 - 1)
+    E = EllipticCurve(F, [1, 1])
+    G = E.random_point()
+    
+    a_priv = randint(2, 10^5)
+    b_priv = randint(2, 10^5)
+    A = a_priv * G
+    B = b_priv * G
+    
+    # Langkah 2: ECDH
+    S_a = a_priv * B
+    S_b = b_priv * A
+    secret_x = S_a[0]
+    
+    key = hashlib.sha256(str(secret_x).encode()).digest()
+    
+    def xor_bytes(m_bytes, k_bytes):
+        return bytes([mb ^ kb for mb, kb in zip(m_bytes, k_bytes)])
 
-    if langkah == 0:
-        pretty_print(html(f"<b>Alice publik:</b> {A}<br><b>Bob publik:</b> {B}"))
+    if langkah == 0:
+        pretty_print(html(f"<b>Alice publik:</b> {A}<br><b>Bob publik:</b> {B}"))
 
-    elif langkah == 1:
-        pretty_print(html(f"<b>Shared Point:</b> {S_a}"))
-        pretty_print(html(f"<b>Kunci Rahasia (SHA-256 dari x):</b><br><code>{key.hex()}</code>"))
+    elif langkah == 1:
+        pretty_print(html(f"<b>Shared Point:</b> {S_a}"))
+        pretty_print(html(f"<b>Kunci Rahasia (SHA-256 dari x):</b><br><code>{key.hex()}</code>"))
 
-    elif langkah == 2:
-        msg_bytes = pesan.encode()
-        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
-        enc_b64 = base64.b64encode(encrypted).decode()
-        pretty_print(html(f"<b>Pesan Terenkripsi (base64):</b><br><code>{enc_b64}</code>"))
+    elif langkah == 2:
+        msg_bytes = pesan.encode()
+        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
+        enc_b64 = base64.b64encode(encrypted).decode()
+        pretty_print(html(f"<b>Pesan Terenkripsi (base64):</b><br><code>{enc_b64}</code>"))
 
-    elif langkah == 3:
-        msg_bytes = pesan.encode()
-        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
-        decrypted = xor_bytes(encrypted, key[:len(msg_bytes)])
-        pretty_print(html(f"<b>Pesan Terdekripsi oleh Bob:</b><br><code>{decrypted.decode()}</code>"))
+    elif langkah == 3:
+        msg_bytes = pesan.encode()
+        encrypted = xor_bytes(msg_bytes, key[:len(msg_bytes)])
+        decrypted = xor_bytes(encrypted, key[:len(msg_bytes)])
+        pretty_print(html(f"<b>Pesan Terdekripsi oleh Bob:</b><br><code>{decrypted.decode()}</code>"))
 </textarea>
 </div>
 
 
-<hr>        
+<hr>        
 
 <h2>2. Tambahkan Konten Dinamis (Pilih: Teks \(\LaTeX\), MathLive atau SageMath!)</h2>
-    
-    <p align="justify">
-    Di pojok kiri atas halaman ini, Anda akan menemukan beberapa tombol mengambang yang berfungsi untuk menambahkan 
-    beragam jenis konten editor secara dinamis. Tombol-tombol ini dirancang untuk memudahkan Anda mengorganisir dan 
-    berinteraksi dengan materi pembelajaran atau penelitian matematika.
-    </p>
+    
+    <p align="justify">
+    Di pojok kiri atas halaman ini, Anda akan menemukan beberapa tombol mengambang yang berfungsi untuk menambahkan 
+    beragam jenis konten editor secara dinamis. Tombol-tombol ini dirancang untuk memudahkan Anda mengorganisir dan 
+    berinteraksi dengan materi pembelajaran atau penelitian matematika.
+    </p>
 <hr>
 </section>
 
-    </div>
+    </div>
 
 <div id="dynamicArea"></div>
 
 <script>
 // Fungsi untuk menyimpan instance CodeMirror agar mudah diakses
-const sageCellInstances = new Map(); 
+const sageCellInstances = new Map(); 
 
 // Fungsi untuk merender MathJax
 function renderMath(inputEl, outputEl) {
-    outputEl.innerHTML = inputEl.value;
-    MathJax.typesetPromise([outputEl]);
+    outputEl.innerHTML = inputEl.value;
+    MathJax.typesetPromise([outputEl]);
 }
 
 // Fungsi untuk beralih antara mode edit dan pratinjau untuk LaTeX
 function toggleEditPreview(button, editorId, previewId) {
-    const editorEl = document.getElementById(editorId);
-    const previewEl = document.getElementById(previewId);
-    if (editorEl.style.display === "none") {
-        editorEl.style.display = "block";
-        previewEl.style.display = "none";
-        button.textContent = "↔️ Lihat Pratinjau";
-    } else {
-        editorEl.style.display = "none";
-        previewEl.style.display = "block";
-        button.textContent = "↔️ Edit Teks";
-        renderMath(editorEl, previewEl);
-    }
+    const editorEl = document.getElementById(editorId);
+    const previewEl = document.getElementById(previewId);
+    if (editorEl.style.display === "none") {
+        editorEl.style.display = "block";
+        previewEl.style.display = "none";
+        button.textContent = "↔️ Lihat Pratinjau";
+    } else {
+        editorEl.style.display = "none";
+        previewEl.style.display = "block";
+        button.textContent = "↔️ Edit Teks";
+        renderMath(editorEl, previewEl);
+    }
 }
 
 // Fungsi untuk menghapus blok
 function deleteBlock(element) {
-    if (confirm("Apakah Anda yakin ingin menghapus blok ini?")) {
-        const blockToRemove = element.closest('.text-block, .mathlive-block, .sage-block');
-        if (blockToRemove && blockToRemove.classList.contains('sage-block')) {
-            const sageInputDiv = blockToRemove.querySelector('.sage-input');
-            if (sageInputDiv && sageCellInstances.has(sageInputDiv)) {
-                sageCellInstances.delete(sageInputDiv);
-            }
-        }
-        blockToRemove.remove();
-    }
+    if (confirm("Apakah Anda yakin ingin menghapus blok ini?")) {
+        const blockToRemove = element.closest('.text-block, .mathlive-block, .sage-block');
+        if (blockToRemove && blockToRemove.classList.contains('sage-block')) {
+            const sageInputDiv = blockToRemove.querySelector('.sage-input');
+            if (sageInputDiv && sageCellInstances.has(sageInputDiv)) {
+                sageCellInstances.delete(sageInputDiv);
+            }
+        }
+        blockToRemove.remove();
+    }
 }
 
 // Fungsi untuk menambahkan blok Teks LaTeX
 // Parameter 'titleText' ditambahkan untuk memungkinkan judul yang berbeda
 function addTextBlock(content = '', idOverride = '', previewShown = false, titleText = 'Blok Teks LaTeX') {
-    const container = document.getElementById("dynamicArea");
-    const block = document.createElement("div");
-    block.className = "text-block";
-    
-    const header = document.createElement("div");
-    header.className = "block-header";
-    const title = document.createElement("span");
-    title.textContent = titleText; // Menggunakan parameter titleText
-    header.appendChild(title);
-    
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "btn btn-small btn-delete";
-    deleteBtn.textContent = "🗑️ Hapus";
-    deleteBtn.onclick = () => deleteBlock(deleteBtn);
-    header.appendChild(deleteBtn);
-    block.appendChild(header);
+    const container = document.getElementById("dynamicArea");
+    const block = document.createElement("div");
+    block.className = "text-block";
+    
+    const header = document.createElement("div");
+    header.className = "block-header";
+    const title = document.createElement("span");
+    title.textContent = titleText; // Menggunakan parameter titleText
+    header.appendChild(title);
+    
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-small btn-delete";
+    deleteBtn.textContent = "🗑️ Hapus";
+    deleteBtn.onclick = () => deleteBlock(deleteBtn);
+    header.appendChild(deleteBtn);
+    block.appendChild(header);
 
-    const ta = document.createElement("textarea");
-    const prev = document.createElement("div");
-    prev.className = "preview";
-    const uniqueId = idOverride || `editor-${Date.now()}`;
-    ta.id = uniqueId;
-    prev.id = "preview-" + uniqueId;
-    ta.value = content || localStorage.getItem(ta.id) || "";
-    prev.style.display = previewShown ? "block" : "none";
-    ta.style.display = previewShown ? "none" : "block";
-    renderMath(ta, prev);
+    const ta = document.createElement("textarea");
+    const prev = document.createElement("div");
+    prev.className = "preview";
+    const uniqueId = idOverride || `editor-${Date.now()}`;
+    ta.id = uniqueId;
+    prev.id = "preview-" + uniqueId;
+    ta.value = content || localStorage.getItem(ta.id) || "";
+    prev.style.display = previewShown ? "block" : "none";
+    ta.style.display = previewShown ? "none" : "block";
+    renderMath(ta, prev);
 
-    ta.addEventListener("input", () => {
-        renderMath(ta, prev);
-        localStorage.setItem(ta.id, ta.value);
-    });
+    ta.addEventListener("input", () => {
+        renderMath(ta, prev);
+        localStorage.setItem(ta.id, ta.value);
+    });
 
-    const toggleBtn = document.createElement("button");
-    toggleBtn.className = "btn-small";
-    toggleBtn.textContent = previewShown ? "↔️ Lihat Pratinjau" : "↔️ Edit Teks";
-    toggleBtn.onclick = () => toggleEditPreview(toggleBtn, ta.id, prev.id);
-    
-    block.appendChild(ta);
-    block.appendChild(prev);
-    block.appendChild(toggleBtn);
-    container.appendChild(block);
+    const toggleBtn = document.createElement("button");
+    toggleBtn.className = "btn-small";
+    toggleBtn.textContent = previewShown ? "↔️ Lihat Pratinjau" : "↔️ Edit Teks";
+    toggleBtn.onclick = () => toggleEditPreview(toggleBtn, ta.id, prev.id);
+    
+    block.appendChild(ta);
+    block.appendChild(prev);
+    block.appendChild(toggleBtn);
+    container.appendChild(block);
 }
 
 // Fungsi baru untuk menambahkan blok Teks LaTeX yang berasal dari SageMath
 function addTextBlockFromSage(content = '', idOverride = '', previewShown = false) {
-    // Panggil addTextBlock dengan judul yang berbeda
-    addTextBlock(content, idOverride, previewShown, 'Blok Kode LaTeX'); 
+    // Panggil addTextBlock dengan judul yang berbeda
+    addTextBlock(content, idOverride, previewShown, 'Blok Kode LaTeX'); 
 }
 
 
 // Fungsi untuk menambahkan blok MathLive
 function addMathliveBlock(content = '', idOverride = '') {
-    const container = document.getElementById("dynamicArea");
-    const block = document.createElement("div");
-    block.className = "mathlive-block";
+    const container = document.getElementById("dynamicArea");
+    const block = document.createElement("div");
+    block.className = "mathlive-block";
 
-    const header = document.createElement("div");
-    header.className = "block-header";
-    const title = document.createElement("span");
-    title.textContent = "Blok MathLive";
-    header.appendChild(title);
+    const header = document.createElement("div");
+    header.className = "block-header";
+    const title = document.createElement("span");
+    title.textContent = "Blok MathLive";
+    header.appendChild(title);
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "btn btn-small btn-delete";
-    deleteBtn.textContent = "🗑️ Hapus";
-    deleteBtn.onclick = () => deleteBlock(deleteBtn);
-    header.appendChild(deleteBtn);
-    block.appendChild(header);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-small btn-delete";
+    deleteBtn.textContent = "🗑️ Hapus";
+    deleteBtn.onclick = () => deleteBlock(deleteBtn);
+    header.appendChild(deleteBtn);
+    block.appendChild(header);
 
-    const mf = document.createElement("math-field");
-    mf.setAttribute("virtual-keyboard-mode", "onfocus");
-    const uniqueId = idOverride || `mathlive-${Date.now()}`;
-    mf.id = uniqueId;
-    mf.value = content || localStorage.getItem(mf.id) || "";
-    mf.addEventListener("input", () => localStorage.setItem(mf.id, mf.value));
-    
-    block.appendChild(mf);
-    container.appendChild(block);
+    const mf = document.createElement("math-field");
+    mf.setAttribute("virtual-keyboard-mode", "onfocus");
+    const uniqueId = idOverride || `mathlive-${Date.now()}`;
+    mf.id = uniqueId;
+    mf.value = content || localStorage.getItem(mf.id) || "";
+    mf.addEventListener("input", () => localStorage.setItem(mf.id, mf.value));
+    
+    block.appendChild(mf);
+    container.appendChild(block);
 }
 
 // Fungsi untuk menambahkan blok SageMath
 function addSageCell(content = '') {
-    const container = document.getElementById("dynamicArea");
-    const cellDiv = document.createElement("div");
-    cellDiv.className = "sage-block compute";
+    const container = document.getElementById("dynamicArea");
+    const cellDiv = document.createElement("div");
+    cellDiv.className = "sage-block compute";
 
-    const header = document.createElement("div");
-    header.className = "block-header";
-    const title = document.createElement("span");
-    title.textContent = "Blok SageMath";
-    header.appendChild(title);
+    const header = document.createElement("div");
+    header.className = "block-header";
+    const title = document.createElement("span");
+    title.textContent = "Blok SageMath";
+    header.appendChild(title);
 
-    const docsLink = document.createElement("a");
-    docsLink.href = "https://doc.sagemath.org/";
-    docsLink.target = "_blank";
-    docsLink.className = "docs-link";
-    docsLink.textContent = "📚 Dokumentasi SageMath";
-    header.appendChild(docsLink);
+    const docsLink = document.createElement("a");
+    docsLink.href = "https://doc.sagemath.org/";
+    docsLink.target = "_blank";
+    docsLink.className = "docs-link";
+    docsLink.textContent = "📚 Dokumentasi SageMath";
+    header.appendChild(docsLink);
 
-    // Tombol untuk menambahkan blok Teks LaTeX baru (tanpa menyalin otomatis dari SageMath)
-    const copyToLatexBtn = document.createElement("button");
-    copyToLatexBtn.className = "btn btn-small";
-    copyToLatexBtn.textContent = "➕ Blok Kode LaTeX Baru"; // Mengganti teks tombol lagi untuk lebih jelas
-    copyToLatexBtn.onclick = () => {
-        addTextBlockFromSage(''); // Panggil fungsi baru dengan judul berbeda
-        alert("Blok Kode LaTeX baru telah ditambahkan. Silakan salin (Ctrl+C) kode dari editor SageMath, lalu tempel (Ctrl+V) di blok Kode LaTeX yang baru.");
-    };
-    header.appendChild(copyToLatexBtn);
+    const latexCodeBtn = document.createElement("button");
+    latexCodeBtn.className = "btn btn-small";
+    latexCodeBtn.textContent = "➕ Blok Kode LaTeX Baru";
+    latexCodeBtn.onclick = () => {
+        // Dapatkan instance CodeMirror untuk sel Sage saat ini
+        const sageInputDiv = cellDiv.querySelector('.sagecell_input');
+        if (sageInputDiv && sageCellInstances.has(sageInputDiv)) {
+            const cm = sageCellInstances.get(sageInputDiv);
+            const codeContent = cm.getValue();
+            addTextBlockFromSage(`\`\`\`python\n${codeContent}\n\`\`\``); // Tambahkan dengan judul baru
+            alert("Kode dari SageMath telah ditambahkan ke blok Kode LaTeX baru. Mohon salin dan tempel (Ctrl+C / Cmd+C) dari editor SageMath ke blok Kode LaTeX yang baru.");
+        } else {
+            addTextBlockFromSage(''); // Tambahkan blok kosong jika tidak ada kode
+            alert("Blok Kode LaTeX baru telah ditambahkan. Silakan salin dan tempel kode dari editor SageMath Anda ke dalamnya secara manual.");
+        }
+    };
+    header.appendChild(latexCodeBtn);
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "btn btn-small btn-delete";
-    deleteBtn.textContent = "🗑️ Hapus";
-    deleteBtn.onclick = () => deleteBlock(deleteBtn);
-    header.appendChild(deleteBtn);
-    
-    cellDiv.appendChild(header);
 
-    const innerDiv = document.createElement("div");
-    innerDiv.className = "sage-input";
-    cellDiv.appendChild(innerDiv);
-    container.appendChild(cellDiv);
-    
-    const initialScriptContent = content || "# Tulis kode SageMath di sini\n";
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-small btn-delete";
+    deleteBtn.textContent = "🗑️ Hapus";
+    deleteBtn.onclick = () => deleteBlock(deleteBtn);
+    header.appendChild(deleteBtn);
+    block.appendChild(header);
 
-    const sageCellObject = sagecell.makeSagecell({
-        inputLocation: innerDiv,
-        template: sagecell.templates.default,
-        evalButtonText: "Jalankan",
-    });
+    const textarea = document.createElement("textarea");
+    textarea.value = content || "";
+    cellDiv.appendChild(textarea);
+    container.appendChild(cellDiv);
 
-    sageCellObject.onInit = function() {
-        const sageEditor = this.editor; 
-        if (sageEditor && typeof sageEditor.setValue === 'function') {
-            sageEditor.setValue(initialScriptContent);
-            if (typeof sageEditor.refresh === 'function') {
-                sageEditor.refresh(); 
-            }
-            // Simpan instance CodeMirror terkait dengan innerDiv ini
-            sageCellInstances.set(innerDiv, sageEditor); 
-            console.log("Sage Editor instance initialized and stored for:", innerDiv);
-        } else {
-            console.error("Gagal mendapatkan sageEditor atau fungsi setValue untuk:", innerDiv);
-        }
-    };
+    // Menggunakan div temporary untuk mendapatkan ID unik yang akan digunakan SageCell
+    const tempDiv = document.createElement('div');
+    container.appendChild(tempDiv);
+    const uniqueId = `sagecell-${Date.now()}`;
+    tempDiv.id = uniqueId;
+    tempDiv.style.display = 'none'; // Sembunyikan div temporary
+
+    // Panggil makeSagecell di div temporary, kemudian pindahkan elemen input dari sana
+    sagecell.makeSagecell({
+        inputLocation: `#${uniqueId}`,
+        template: sagecell.templates.default,
+        evalButtonText: 'Jalankan',
+        autoeval: true,
+        // BARIS PENTING: Tambahkan opsi bahasa di sini
+        languages: ['sage', 'python'], // Menambahkan 'python' sebagai pilihan bahasa
+        defaultLanguage: 'sage', // Atau 'python' jika Anda ingin default ke Python
+        autoeval: true, // Auto-evaluate agar konten dari file JSON langsung dieksekusi
+        
+        // Callback setelah sel Sage dibuat
+        callback: function(sagecell) {
+            // Pindahkan elemen-elemen yang dihasilkan SageCell ke cellDiv yang sebenarnya
+            const inputDiv = sagecell.inputdiv[0];
+            const outputDiv = sagecell.outputdiv[0];
+            cellDiv.appendChild(inputDiv);
+            cellDiv.appendChild(outputDiv);
+            tempDiv.remove(); // Hapus div temporary
+
+            // Simpan instance CodeMirror untuk akses nanti (misalnya untuk tombol copy ke LaTeX)
+            if (sagecell.editor) {
+                sageCellInstances.set(inputDiv, sagecell.editor);
+            }
+        }
+    });
 }
 
 // Fungsi untuk menyimpan sesi
 function saveSession() {
-    const contents = [];
-    document.querySelectorAll(".text-block textarea").forEach(e => {
-        const block = e.closest('.text-block');
-        const titleElement = block ? block.querySelector('.block-header span') : null;
-        const blockTitle = titleElement ? titleElement.textContent : 'Blok Teks LaTeX'; // Ambil judul saat menyimpan
-        const previewVisible = document.getElementById("preview-" + e.id)?.style.display === "block";
-        contents.push({type: "latex", id: e.id, content: e.value, preview: previewVisible, title: blockTitle}); // Simpan judul
-    });
-    document.querySelectorAll(".mathlive-block math-field").forEach(m => contents.push({type: "mathlive", id: m.id, content: m.value}));
-    
-    document.querySelectorAll(".sage-block").forEach(block => {
-        const sageInputDiv = block.querySelector(".sage-input");
-        let code = "";
-        
-        const sageEditorInstance = sageCellInstances.get(sageInputDiv);
-        if (sageEditorInstance && typeof sageEditorInstance.getValue === 'function') {
-            code = sageEditorInstance.getValue();
-            console.log("Menyimpan kode SageMath dari instance:", code);
-        } else {
-            const iframe = sageInputDiv.querySelector('iframe');
-            if (iframe && iframe.contentWindow) {
-                try {
-                    const iframeDoc = iframe.contentWindow.document;
-                    const cmTextArea = iframeDoc.querySelector('textarea.CodeMirror-textarea');
-                    if (cmTextArea) {
-                        code = cmTextArea.value;
-                        console.log("Menyimpan kode SageMath dari iframe textarea (fallback):", code);
-                    } else {
-                        console.warn("Tidak dapat menemukan textarea CodeMirror di dalam iframe untuk disimpan.");
-                    }
-                } catch (e) {
-                    console.error("Kesalahan mengakses konten iframe saat menyimpan (mungkin cross-origin):", e);
-                }
-            } else {
-                console.warn("Iframe SageCell tidak ditemukan atau belum siap saat menyimpan.");
-            }
-        }
-        contents.push({type: "sage", content: code}); 
-    });
+    const blocks = [];
+    document.querySelectorAll('.text-block, .mathlive-block, .sage-block').forEach(block => {
+        if (block.classList.contains('text-block')) {
+            const editorEl = block.querySelector('textarea');
+            const previewEl = block.querySelector('.preview');
+            blocks.push({
+                type: 'text',
+                content: editorEl.value,
+                previewShown: previewEl.style.display !== 'none',
+                title: block.querySelector('.block-header span').textContent // Ambil judul blok
+            });
+        } else if (block.classList.contains('mathlive-block')) {
+            blocks.push({
+                type: 'mathlive',
+                content: block.querySelector('math-field').value
+            });
+        } else if (block.classList.contains('sage-block')) {
+            // Untuk SageCell, kita perlu mendapatkan konten dari CodeMirror instance
+            const sageInputDiv = block.querySelector('.sagecell_input');
+            if (sageInputDiv && sageCellInstances.has(sageInputDiv)) {
+                const cm = sageCellInstances.get(sageInputDiv);
+                blocks.push({
+                    type: 'sage',
+                    content: cm.getValue()
+                });
+            }
+        }
+    });
 
-    const blob = new Blob([JSON.stringify(contents, null, 2)], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "session.json";
-    a.click();
-    URL.revokeObjectURL(url);
-    alert("✅ Sesi berhasil disimpan!");
+    // Simpan juga semua konten textarea lama yang memiliki ID di local storage
+    const allTextareas = document.querySelectorAll('textarea[id^="editor-"]');
+    allTextareas.forEach(ta => {
+        localStorage.setItem(ta.id, ta.value);
+    });
+    // Simpan juga semua konten math-field lama yang memiliki ID di local storage
+    const allMathFields = document.querySelectorAll('math-field[id^="mathlive-"]');
+    allMathFields.forEach(mf => {
+        localStorage.setItem(mf.id, mf.value);
+    });
+
+    const data = JSON.stringify(blocks);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'matematika_interaktif_sesi.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    alert("Sesi berhasil disimpan!");
 }
 
-// Fungsi untuk memuat sesi
-function loadSession(input) {
-    const file = input.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        try {
-            const data = JSON.parse(e.target.result);
-            const container = document.getElementById("dynamicArea");
-            container.innerHTML = ""; 
-            
-            sageCellInstances.clear(); 
-
-            let delay = 0;
-            data.forEach(item => {
-                setTimeout(() => {
-                    if (item.type === "latex") {
-                        // Saat memuat, gunakan judul yang tersimpan jika ada, jika tidak, gunakan default
-                        addTextBlock(item.content, item.id, item.preview, item.title || 'Blok Teks LaTeX');
-                    } else if (item.type === "mathlive") {
-                        addMathliveBlock(item.content, item.id);
-                    } else if (item.type === "sage") {
-                        console.log("Memuat SageMath dengan konten:", item.content);
-                        addSageCell(item.content); 
-                    }
-                }, delay);
-                if (item.type === "sage") {
-                    delay += 400; 
-                } else {
-                    delay += 50; 
-                }
-            });
-
-            setTimeout(() => {
-                alert("✅ Sesi berhasil dimuat!");
-            }, delay + 500); 
-        } catch (error) {
-            alert("❌ Gagal memuat file sesi. Pastikan file adalah JSON yang valid.");
-            console.error("Error loading session:", error);
-        }
-    };
-    reader.readAsText(file);
+// Fungsi untuk memuat sesi dari file
+function loadSession(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const blocks = JSON.parse(e.target.result);
+            document.getElementById("dynamicArea").innerHTML = ''; // Bersihkan area saat ini
+            blocks.forEach(blockData => {
+                if (blockData.type === 'text') {
+                    // Periksa apakah judul "Blok Kode LaTeX"
+                    if (blockData.title === 'Blok Kode LaTeX') {
+                        addTextBlockFromSage(blockData.content, '', blockData.previewShown);
+                    } else {
+                        addTextBlock(blockData.content, '', blockData.previewShown, blockData.title);
+                    }
+                } else if (blockData.type === 'mathlive') {
+                    addMathliveBlock(blockData.content);
+                } else if (blockData.type === 'sage') {
+                    addSageCell(blockData.content);
+                }
+            });
+            alert("Sesi berhasil dimuat!");
+        } catch (error) {
+            console.error("Gagal memuat sesi:", error);
+            alert("Gagal memuat sesi. File mungkin rusak atau tidak valid.");
+        }
+    };
+    reader.readAsText(file);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("saveBtn").addEventListener("click", saveSession);
+// Tambahkan event listener untuk tombol save
+document.getElementById('saveBtn').addEventListener('click', saveSession);
+
+// Memuat sesi dari local storage saat halaman dimuat
+window.addEventListener('load', () => {
+    // Untuk sel SageMath yang ada di HTML statis, kita perlu menginisialisasinya secara manual
+    // dengan menyimpan instance CodeMirror mereka jika perlu.
+    // Namun, karena `makeSagecell` sudah dipanggil untuk `#Intent`, `#matriks`, `#lucu3d`, `#sikloida`, dan `#sagemath-ecc`
+    // di awal script, dan mereka bukan bagian dari `dynamicArea`, kita tidak perlu memuat ulang mereka
+    // dari `localStorage` atau `JSON` melalui fungsi `loadSession`.
+    // `loadSession` hanya akan menangani blok yang ditambahkan secara dinamis.
+
+    // Initial setup for static SageCells if their CodeMirror instance is needed later
+    // (e.g., for copy to LaTeX button functionality if you were to implement it for static cells).
+    // This part is more complex as it requires intercepting the SageCell initialization.
+    // For now, the copy to LaTeX functionality is primarily for dynamically added cells.
+
 });
 </script>
 </body>
