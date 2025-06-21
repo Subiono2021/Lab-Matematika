@@ -723,7 +723,7 @@ def proses_kriptografi(pesan_input):
 
 # Interaktif dengan input string literal (bukan ekspresi)
 @interact
-def _(pesan=input_box(default="<p>Ini rahasia kita berdua</b>. Salam hangat 💖💘💕💞😘 😍 🥺: أحبك بوب;  我爱你，鲍勃; ボブ、愛してる; \
+def _(pesan=input_box(default="<p>Ini rahasia kita berdua</b>. Salam hangat 💖💘💕💞😘 😍 🥺: أحبك بوب;  我爱你，鲍勃; <br>ボブ、愛してる; \
       Я люблю тебя, Боб; मैं तुमसे प्यार करता हूँ, बॉब .</p>", label="📩 Pesan Alice", type=str,rows=15),
      kirim=checkbox(False, label="✅ Kirim Pesan?")):
     if kirim:
