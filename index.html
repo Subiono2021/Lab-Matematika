@@ -555,7 +555,7 @@ sangat besar.
 </li>
 <li>
 <strong>Fokus pada Konsep, Bukan Kekuatan Brute-Force:</strong> Tujuan dari kode ini adalah untuk mendemonstrasikan <em>bagaimana</em> 
-ECDH bekerja, bukan untuk menyediakan implementasi yang tak terpecahkan. Menggunakan $p=211$ memungkinkan fokus pada alur kriptografi 
+ECDH bekerja, bukan untuk menyediakan implementasi yang tak terpecahkan. Menggunakan \(p=211\) memungkinkan fokus pada alur kriptografi 
 tanpa terganggu oleh detail pemilihan parameter keamanan tingkat industri.
 </li>
 </ol>
@@ -604,7 +604,7 @@ dipertukarkan melalui saluran yang tidak aman. Meskipun \(A\) dan \(B\) diketahu
 \(B\) karena ECDLP.
 </li>
 <li><strong>Derivasi Kunci Bersama (Shared Secret):</strong>
-Setelah menerima kunci publik Bob ($B$), Alice menghitung kunci bersama \(K_1 = a \cdot B = a \cdot (b \cdot G) = (ab) \cdot G\).
+Setelah menerima kunci publik Bob (\(B\)), Alice menghitung kunci bersama \(K_1 = a \cdot B = a \cdot (b \cdot G) = (ab) \cdot G\).
 Serentak, setelah menerima kunci publik Alice (\(A\)), Bob menghitung kunci bersama \(K_2 = b \cdot A = b \cdot (a \cdot G) = (ba) \cdot G\).
 Karena sifat komutatif dari perkalian skalar pada kurva eliptik, \((ab) \cdot G = (ba) \cdot G\). Oleh karena itu, \(K_1 = K_2\). Titik \(K = (x_K, y_K)\) 
 ini adalah kunci bersama rahasia yang telah disepakati oleh Alice dan Bob.</li>
