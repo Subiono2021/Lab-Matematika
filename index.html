@@ -884,8 +884,8 @@ function addSageCell(content = '') {
     const container = document.getElementById("dynamicArea");
     const cellDiv = document.createElement("div");
     cellDiv.className = "sage-block compute";
-
-    const header = document.createElement("div");
+    
+    const header = document.createElement("div"); 
     header.className = "block-header";
     const title = document.createElement("span");
     title.textContent = "Blok SageMath";
@@ -897,6 +897,14 @@ function addSageCell(content = '') {
     docsLink.className = "docs-link";
     docsLink.textContent = "📚 Dokumentasi SageMath";
     header.appendChild(docsLink);
+
+    // Inisialisasi SageCell dengan opsi linked: true
+    sagecell.makeSagecell({
+        inputLocation: codeDiv,
+        linked: true,
+        evalButtonText: "Jalankan",
+        autoeval: false
+    });
 
     // Tombol untuk menambahkan blok Teks LaTeX baru (tanpa menyalin otomatis dari SageMath)
     const copyToLatexBtn = document.createElement("button");
