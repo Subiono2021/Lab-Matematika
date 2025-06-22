@@ -51,6 +51,26 @@
                            evalButtonText: 'aktifkan'});
     </script>
 
+   <script>
+    // Make the div with id 'pdb' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#pdb',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
+
+    <script>
+    // Make the div with id 'jawab' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#jawab',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
+
     <script defer src="https://unpkg.com/mathlive"></script>
     <style>
         body { font-family: sans-serif; max-width: 960px; margin: auto; padding: 20px; }
@@ -505,7 +525,7 @@ Kita berikan himpunan \(D\) yang merupakan penyelesaian dari persamaan differens
 $$
 \dfrac{d^2f}{dx^2}+f=0
 $$
-<div id="matriks">
+<div id="pdb">
 <script type="text/x-sage">
 var('x')
 f = function ('f')(x)
@@ -534,7 +554,7 @@ Dapatkan \(\||x\rangle\|, \langle x|y\rangle\) dan \(\langle y|x\rangle\). \(\sq
 <br>
 Kita jawab permasalahan dalam Sel SageMath berikut:
 </p>
-<div id="matriks">
+<div id="jawab">
 <script type="text/x-sage">
 %display latex
 
@@ -560,7 +580,7 @@ pretty_print(html(r"$\langle y|x\rangle=%s$"%latex(B)))
 </script>
 </div>
 <hr>
-<hr>
+	    
 <h2>Analisis Matematika Kriptografi Hybrid (ECDH + Caesar Cipher)</h2>
 
 <p align="justify">
