@@ -898,14 +898,6 @@ function addSageCell(content = '') {
     docsLink.textContent = "📚 Dokumentasi SageMath";
     header.appendChild(docsLink);
 
-    // Inisialisasi SageCell dengan opsi linked: true
-    sagecell.makeSagecell({
-        inputLocation: innerDiv,
-        linked: true,
-        evalButtonText: "Jalankan",
-        autoeval: false
-    });
-
     // Tombol untuk menambahkan blok Teks LaTeX baru (tanpa menyalin otomatis dari SageMath)
     const copyToLatexBtn = document.createElement("button");
     copyToLatexBtn.className = "btn btn-small";
