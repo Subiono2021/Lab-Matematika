@@ -487,6 +487,80 @@ show(a)
 </script>
 </div>
 <hr>
+<p align="justify">
+Misalkan diberikan semua himpunan fungsi yaitu
+</p>
+$$
+V=\{f:\mathbb{R}\rightarrow\mathbb{R}\}
+$$
+<p align="justify">
+dan \(D\subset V\), dengan
+</p>
+$$
+D=\left\{f\in V\:\left|\:\dfrac{d^2f}{dx^2}\right.+f=0\right\},
+$$
+<p align="justify">
+Kita berikan himpunan \(D\) yang merupakan penyelesaian dari persamaan differensial:
+</p>
+$$
+\dfrac{d^2f}{dx^2}+f=0
+$$
+<div id="matriks">
+<script type="text/x-sage">
+var('x')
+f = function ('f')(x)
+pd = diff (f,x,2)+f == 0
+
+pretty_print(html(r"Himpunan penyelesaian dari $\frac{d^2f}{dx^2}\ \ +f=0$ adalah :"))
+pretty_print(html(r"$D=\left\{ f(x) = %s \mid K_1,K_2\in\mathbb{R}\right\}$"%latex(expand(desolve(pd,f)))))
+</script>
+</div>
+<hr>
+	    
+<p align="justify">
+Diberikan
+$$
+|x\rangle=\begin{bmatrix}
+1\\
+i\\
+2+i
+\end{bmatrix}\ \text{dan}\ |y\rangle=\begin{bmatrix}
+2-i\\
+1\\
+2+i
+\end{bmatrix}.
+$$
+Dapatkan \(\||x\rangle\|, \langle x|y\rangle\) dan \(\langle y|x\rangle\). \(\square\).
+<br>
+Kita jawab permasalahan dalam Sel SageMath berikut:
+</p>
+<div id="matriks">
+<script type="text/x-sage">
+%display latex
+
+s = vector([1,i,2+i])
+w = vector([2-i,1,2+i])
+
+x=s.column()
+y=w.column()
+
+w=s.conjugate()
+h=w.inner_product(s)
+
+A = x.conjugate_transpose()*y
+B = y.conjugate_transpose()*x
+
+pretty_print(html(r"$|x\rangle=%s$"%latex(x)))
+pretty_print(html(r"$|y\rangle=%s$"%latex(y)))
+pretty_print(html(r"$\|x\|=%s$"%latex(s.norm())))
+pretty_print(html(r"$|x\rangle^{\dagger}=%s$"%latex(w.row())))
+pretty_print(html(r"$\|x\|=%s$"%latex(sqrt(h))))
+pretty_print(html(r"$\langle x|y\rangle=%s$"%latex(A)))
+pretty_print(html(r"$\langle y|x\rangle=%s$"%latex(B)))
+</script>
+</div>
+<hr>
+<hr>
 <h2>Analisis Matematika Kriptografi Hybrid (ECDH + Caesar Cipher)</h2>
 
 <p align="justify">
