@@ -572,9 +572,8 @@ B = y.conjugate_transpose()*x
 
 pretty_print(html(r"$|x\rangle=%s$"%latex(x)))
 pretty_print(html(r"$|y\rangle=%s$"%latex(y)))
-pretty_print(html(r"$\|x\|=%s$"%latex(s.norm())))
+pretty_print(html(r"$\||x\rangle\|=%s$"%latex(s.norm())))
 pretty_print(html(r"$|x\rangle^{\dagger}=%s$"%latex(w.row())))
-pretty_print(html(r"$\|x\|=%s$"%latex(sqrt(h))))
 pretty_print(html(r"$\langle x|y\rangle=%s$"%latex(A)))
 pretty_print(html(r"$\langle y|x\rangle=%s$"%latex(B)))
 </script>
