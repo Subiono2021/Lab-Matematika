@@ -316,10 +316,11 @@
               yang berharga untuk masa depan di era digital dan AI. Sehingga memahami matematika secara utuh "<b>teori, 
               aplikasi (real problem) dan komputasi menjadi satu kesatuan yang tak-terpisah</b>."
             </p>
+	<hr>
         </section>
 
-        <section>
-            <h2>1. Contoh SageMath Cell</h2>
+    <section>
+    <h2>1. Contoh SageMath Cell</h2>
     <p align="justify">
     Contoh berikut adalah hasil dari kode dalam SageMath suatu kalkulator menghitung integral tertentu dan 
     juga menampilkan grafiknya. Untuk mengeksekusi tekan tombol <button>Aktifkan</button>.Anda bisa mengubah isian 
@@ -925,9 +926,10 @@ function addSageCell(content = '') {
         inputLocation: innerDiv,
         template: sagecell.templates.default,
         evalButtonText: "Jalankan",
-		languages: ['sage', 'python'], // Menambahkan 'python' sebagai pilihan bahasa
+	languages: ['sage', 'python'], // Menambahkan 'python' sebagai pilihan bahasa
         defaultLanguage: 'sage', // Atau 'python' jika Anda ingin default ke Python
         autoeval: true, // Auto-evaluate agar konten dari file JSON langsung dieksekusi
+	linked: true
     });
 
     sageCellObject.onInit = function() {
