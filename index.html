@@ -192,31 +192,60 @@
         </div>
         <hr>
     </div>
-<!-- Area Editor MathLive -->
-<math-field id="editor" virtual-keyboard-mode="onfocus" style="width: 100%;"></math-field>
 
-<!-- Tombol Kirim ke SageMath -->
+<!-- Editor MathLive -->
+<math-field id="editor" virtual-keyboard-mode="onfocus" style="width: 100%; height: 40px;"></math-field>
+<br>
+<!-- Tombol Kirim -->
 <button id="hitung">Evaluasi di SageMath</button>
-
-<!-- Area Hasil Komputasi -->
-<div id="output"></div>
+<!-- Area Output -->
+<div id="output" style="margin-top: 15px;"></div>
 
 <script src="https://unpkg.com/mathlive"></script>
 <script>
-  document.getElementById('hitung').onclick = function() {
-    const ekspresiLatex = document.getElementById('editor').value;
-    const kodeSage = `show(${ekspresiLatex})`;
+function encodeBase64Unicode(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
 
+document.getElementById('hitung').onclick = function() {
+    const latexInput = document.getElementById('editor').value.trim();
+
+    if (latexInput === "") {
+        alert("Silakan tulis ekspresi matematika terlebih dahulu.");
+        return;
+    }
+
+    // Contoh konversi sederhana: hanya menerima ekspresi x^2 untuk demonstrasi
+    // Implementasi real memerlukan parser LaTeX ke kode Sage yang valid
+    let kodeSage = "";
+
+    if (latexInput === "x^2") {
+        kodeSage = `
+var('x')
+integrate(x^2, (x, 0, 1))
+`;
+    } else {
+        alert("Saat ini hanya demo untuk ekspresi x^2. Konversi LaTeX ke kode Sage belum otomatis.");
+        return;
+    }
+
+    // Encode ke Base64
+    const kodeEncoded = encodeBase64Unicode(kodeSage);
+
+    // Tampilkan hasil di iframe
     const iframe = document.createElement('iframe');
-    iframe.src = 'https://sagecell.sagemath.org/?z=' + encodeURIComponent(kodeSage);
-    iframe.style.width = '100%';
-    iframe.style.height = '300px';
-    
-    document.getElementById('output').innerHTML = '';
-    document.getElementById('output').appendChild(iframe);
-  };
+    iframe.src = "https://sagecell.sagemath.org/?z=" + encodeURIComponent(kodeEncoded);
+    iframe.style.width = "100%";
+    iframe.style.height = "300px";
+
+    const output = document.getElementById('output');
+    output.innerHTML = "";
+    output.appendChild(iframe);
+};
 </script>
 
+
+	
      <div class="container">
         <h2>Panduan Penggunaan: Laboratorium Matematika Interaktif Dinamis Anda</h2>
 
