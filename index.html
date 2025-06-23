@@ -81,6 +81,16 @@
                            evalButtonText: 'aktifkan'});
     </script>
 
+   <script>
+    // Make the div with id 'nonlin' a Sage cell
+    sagecell.makeSagecell({inputLocation:  '#nonlin',
+                           template:       sagecell.templates.minimal,
+                           evalButtonText: 'aktifkan'});
+    // Make *any* div with class 'compute' a Sage cell
+    sagecell.makeSagecell({inputLocation: 'div.compute',
+                           evalButtonText: 'aktifkan'});
+    </script>
+
     <script defer src="https://unpkg.com/mathlive"></script>
     <style>
         body { font-family: sans-serif; max-width: 960px; margin: auto; padding: 20px; }
@@ -192,69 +202,60 @@
         </div>
         <hr>
     </div>
+<hr>
 
-<!-- Editor MathLive -->
-<math-field id="editor" virtual-keyboard-mode="onfocus" style="width: 100%; height: 40px;"></math-field>
-<br>
-<button id="hitung">Evaluasi di SageMath</button>
-<div id="output" style="margin-top: 15px;"></div>
-
-<script src="https://unpkg.com/mathlive"></script>
-<script>
-function encodeBase64Unicode(str) {
-    return btoa(unescape(encodeURIComponent(str)));
-}
-
-// Fungsi parser LaTeX ke kode Sage sederhana untuk integral
-function konversiLatexKeSage(latexInput) {
-    // Deteksi pola \int_{a}^{b} f(x) \, dx
-    const pola = /\\int_([^{]+)\^\{([^}]+)\}\s+(.+)\s+dx/;
-    const cocok = pola.exec(latexInput);
-
-    if (cocok) {
-        const batasBawah = cocok[1].trim();
-        const batasAtas = cocok[2].trim();
-        const fungsi = cocok[3].trim();
-
-        return `
-var('x')
-integrate(${fungsi}, (x, ${batasBawah}, ${batasAtas}))
-`;
-    }
-
-    return null; // Tidak dikenali
-}
-
-document.getElementById('hitung').onclick = function() {
-    const latexInput = document.getElementById('editor').value.trim();
-
-    if (latexInput === "") {
-        alert("Silakan tulis ekspresi matematika terlebih dahulu.");
-        return;
-    }
-
-    const kodeSage = konversiLatexKeSage(latexInput);
-
-    if (!kodeSage) {
-        alert("Saat ini hanya mendukung konversi integral bentuk: \\int_{a}^{b} f(x) dx");
-        return;
-    }
-
-    const kodeEncoded = encodeBase64Unicode(kodeSage);
-
-    const iframe = document.createElement('iframe');
-    iframe.src = "https://sagecell.sagemath.org/?z=" + encodeURIComponent(kodeEncoded);
-    iframe.style.width = "100%";
-    iframe.style.height = "300px";
-
-    const output = document.getElementById('output');
-    output.innerHTML = "";
-    output.appendChild(iframe);
-};
-</script>
-
-
-
+<h2>1. Pendahuluan</h2> 
+<p align="justify">
+Matematika memegang peranan sentral dalam berbagai disiplin ilmu, mulai dari sains dasar hingga rekayasa teknologi. 
+Di era digital saat ini, kebutuhan akan metode pembelajaran matematika yang interaktif, aplikatif, dan terintegrasi dengan 
+teknologi komputasi menjadi semakin mendesak. Salah satu tantangan utama dalam pembelajaran matematika adalah menjembatani 
+kesenjangan antara pemahaman konseptual, penerapan dalam masalah nyata (<i>real problem</i>), serta eksplorasi komputasional.
+</p>
+<p align="justify">
+Berbeda dengan pendekatan konvensional yang sering kali terfragmentasi antara teori, aplikasi, dan komputasi, artikel ini 
+menawarkan suatu model integratif melalui platform web yang dirancang khusus untuk:
+</p>
+<ul align="justify">
+<li>Menuliskan dan memanipulasi ekspresi matematis dalam notasi standar internasional berbasis \(\LaTeX\).</li> 
+<li>Merender ekspresi tersebut secara real-time dalam format visual yang sesuai standar akademik.</li> 
+<li>Mengevaluasi dan mengolah ekspresi atau sistem matematis secara simbolik maupun numerik dengan memanfaatkan 
+SageMath, sebuah sistem komputasi open-source yang kompatibel dengan Python.</li>
+</ul>
+	
+<h3> 1.1 Motivasi</h3>
+<p align="justify">
+Pendidikan matematika saat ini menghadapi berbagai tantangan, di antaranya:
+</p>
+<ul align="justify">
+<li>Keterbatasan akses terhadap perangkat lunak komputasi matematis yang umumnya berbayar atau memerlukan instalasi rumit.</li>
+<li>Kurangnya integrasi antara antarmuka penulisan ekspresi matematis dengan kemampuan evaluasi simbolik secara langsung.</li>
+<li>Minimnya platform berbasis web yang menggabungkan aspek visualisasi, komputasi, dan interaktivitas dalam satu sistem terpadu.</li>
+</ul>
+<p align="justify">
+Melalui integrasi antara <b>MathLive</b> sebagai editor ekspresi matematis berbasis WYSIWYG dan <b>SageMath Cell</b> sebagai 
+mesin komputasi simbolik, platform ini diharapkan dapat menjadi solusi konkret yang mudah diakses, fleksibel, dan mampu digunakan 
+di berbagai level pendidikan—baik untuk siswa, mahasiswa, maupun praktisi matematika.
+</p>
+	
+<h3>1.2 Kontribusi Utama</h3>
+<p align="justify">
+Adapun kontribusi utama dari penelitian dan pengembangan sistem ini meliputi:
+</p>
+<ul align="justify">
+<li><b>Desain antarmuka dinamis berbasis HTML</b> yang memungkinkan penambahan elemen editor dan output secara real-time.</li>
+<li><b>Integrasi seamless antara editor LaTeX dan mesin komputasi simbolik SageMath</b>, memungkinkan evaluasi ekspresi 
+matematis tanpa perpindahan platform.</li>
+<li><b>Penerapan prinsip Laboratorium Matematika Interaktif Dinamis</b> berbasis web yang dapat diakses tanpa instalasi 
+tambahan selain peramban dan koneksi internet.</li>
+<li>Dukungan terhadap berbagai topik matematika, termasuk aljabar linier, kalkulus, teori bilangan, sistem persamaan, 
+hingga eksplorasi numerik dan visualisasi grafik.</li>
+</ul>
+<p align="justify">
+Dengan pendekatan ini, pembelajaran matematika tidak hanya berfokus pada aspek teoritis, tetapi juga mendorong peserta didik 
+dan pengguna untuk mengaitkan konsep-konsep tersebut dengan situasi nyata serta membiasakan diri dengan penggunaan alat bantu 
+komputasi modern, yang merupakan kompetensi esensial di abad ke-21.
+</p>
+<hr>
 	
      <div class="container">
         <h2>Panduan Penggunaan: Laboratorium Matematika Interaktif Dinamis Anda</h2>
@@ -456,6 +457,31 @@ p = factor(A.charpoly("lambda"))
 display(html(r"$A = %s"%(latex(A))))
 display(html(r"$p(\lambda) = %s"%(latex(p))))
 display(html(r"$\det(A) = %s"%(latex(d))))
+</script>
+</div>
+<hr>
+<p align="justify">
+Diberikan sistem persamaan non-linear:
+$$
+\left\{
+\begin{eqnarray*}
+x^2+y^2 &=& 1\\
+x-y &=& 0.5	
+\end{eqnarray*}
+\right.
+$$
+Himpunan penyelesaiannya $S_1$ dan $S_2$ diberikan dalam SegeMath sebagai berikut:
+</p>
+<div id="nonlin">
+<script type="text/x-sage">
+%display latex
+
+var('x y')
+S = solve([x^2 + y^2 == 1, x - y == 0.5], x, y)
+s1 = Set(S[0])
+s2 = Set(S[1])
+display(html(r"$S_1=%s$"%latex(s1)))
+display(html(r"$S_2=%s$"%latex(s2)))
 </script>
 </div>
 <hr>
