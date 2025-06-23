@@ -192,6 +192,30 @@
         </div>
         <hr>
     </div>
+<!-- Area Editor MathLive -->
+<math-field id="editor" virtual-keyboard-mode="onfocus" style="width: 100%;"></math-field>
+
+<!-- Tombol Kirim ke SageMath -->
+<button id="hitung">Evaluasi di SageMath</button>
+
+<!-- Area Hasil Komputasi -->
+<div id="output"></div>
+
+<script src="https://unpkg.com/mathlive"></script>
+<script>
+  document.getElementById('hitung').onclick = function() {
+    const ekspresiLatex = document.getElementById('editor').value;
+    const kodeSage = `show(${ekspresiLatex})`;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://sagecell.sagemath.org/?z=' + encodeURIComponent(kodeSage);
+    iframe.style.width = '100%';
+    iframe.style.height = '300px';
+    
+    document.getElementById('output').innerHTML = '';
+    document.getElementById('output').appendChild(iframe);
+  };
+</script>
 
      <div class="container">
         <h2>Panduan Penggunaan: Laboratorium Matematika Interaktif Dinamis Anda</h2>
