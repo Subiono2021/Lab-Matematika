@@ -590,12 +590,12 @@ pretty_print(html(r"$\langle y|x\rangle=%s$"%latex(B)))
 </div>
 <hr>
 <p align="justify">
-Diberikan suatu kurva \(y=f(x)\) dan \(x\in [a,b]\). Bila benda dibatatasi oleh \(f(x)\) dan (x=a, x=b\) diputar pada sumbu-\(x\), maka 
+Diberikan suatu kurva \(y=f(x)\) dan \(x\in [a,b]\). Bila benda dibatatasi oleh \(f(x)\) dan \(x=a, x=b\) diputar pada sumbu-\(x\), maka 
 volume benda putar adalah: 
 	$$V=\pi\int\limits_{a}^{b}\left(f(x)\right)^2dx.$$
 <b>Contoh</b><br>
 Diberikan benda yang dibatasi oleh  \(f(x)=(x-1)^2+1\) dan \(x=-1, x=3\) diputar pada sumbu-\(x\), maka volume benda putar adalah: 
-	$$
+	
 	\begin{eqnarray*}
 	V &=& \pi\int\limits_{-1}^{3}\left((x-1)^2+1\right)^2dx\\ 
 	&=&\pi\int\limits_{-1}^{3}\left((x-1)^4+2(x-1)^2+1\right)dx\\ 
@@ -603,7 +603,7 @@ Diberikan benda yang dibatasi oleh  \(f(x)=(x-1)^2+1\) dan \(x=-1, x=3\) diputar
 	&=& \pi\left[\left(\frac{32}{5}+\frac{16}{3}+3\right)-\left(-\frac{32}{5}-\frac{16}{3}-1\right)\right]\\ 
 	&=&\frac{412\pi}{15}.\
 	end{eqnarray*}
-	$$
+	
 Kita selesaikan contoh ini dengan menggunakan <b>SageMath</b> sebagai berikut:
 </p>
 <div id="vputar">
