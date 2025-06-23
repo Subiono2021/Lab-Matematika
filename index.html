@@ -196,15 +196,33 @@
 <!-- Editor MathLive -->
 <math-field id="editor" virtual-keyboard-mode="onfocus" style="width: 100%; height: 40px;"></math-field>
 <br>
-<!-- Tombol Kirim -->
 <button id="hitung">Evaluasi di SageMath</button>
-<!-- Area Output -->
 <div id="output" style="margin-top: 15px;"></div>
 
 <script src="https://unpkg.com/mathlive"></script>
 <script>
 function encodeBase64Unicode(str) {
     return btoa(unescape(encodeURIComponent(str)));
+}
+
+// Fungsi parser LaTeX ke kode Sage sederhana untuk integral
+function konversiLatexKeSage(latexInput) {
+    // Deteksi pola \int_{a}^{b} f(x) \, dx
+    const pola = /\\int_([^{]+)\^\{([^}]+)\}\s+(.+)\s+dx/;
+    const cocok = pola.exec(latexInput);
+
+    if (cocok) {
+        const batasBawah = cocok[1].trim();
+        const batasAtas = cocok[2].trim();
+        const fungsi = cocok[3].trim();
+
+        return `
+var('x')
+integrate(${fungsi}, (x, ${batasBawah}, ${batasAtas}))
+`;
+    }
+
+    return null; // Tidak dikenali
 }
 
 document.getElementById('hitung').onclick = function() {
@@ -215,24 +233,15 @@ document.getElementById('hitung').onclick = function() {
         return;
     }
 
-    // Contoh konversi sederhana: hanya menerima ekspresi x^2 untuk demonstrasi
-    // Implementasi real memerlukan parser LaTeX ke kode Sage yang valid
-    let kodeSage = "";
+    const kodeSage = konversiLatexKeSage(latexInput);
 
-    if (latexInput === "x^2") {
-        kodeSage = `
-var('x')
-integrate(x^2, (x, 0, 1))
-`;
-    } else {
-        alert("Saat ini hanya demo untuk ekspresi x^2. Konversi LaTeX ke kode Sage belum otomatis.");
+    if (!kodeSage) {
+        alert("Saat ini hanya mendukung konversi integral bentuk: \\int_{a}^{b} f(x) dx");
         return;
     }
 
-    // Encode ke Base64
     const kodeEncoded = encodeBase64Unicode(kodeSage);
 
-    // Tampilkan hasil di iframe
     const iframe = document.createElement('iframe');
     iframe.src = "https://sagecell.sagemath.org/?z=" + encodeURIComponent(kodeEncoded);
     iframe.style.width = "100%";
@@ -243,6 +252,7 @@ integrate(x^2, (x, 0, 1))
     output.appendChild(iframe);
 };
 </script>
+
 
 
 	
